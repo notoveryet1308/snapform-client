@@ -1,14 +1,28 @@
-import SampleImg from "./assets/sample.jpg";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  createBrowserRouter,
+  createRoutesFromElements
+} from "react-router-dom";
+import Admin from "./modules/Admin";
+import User from "./modules/User";
+import LiveUIPage from "./modules/User/live";
 
-import "./style.scss";
+const router = createBrowserRouter(createRoutesFromElements(<Route></Route>));
 
 const App = () => {
-  const ss = "";
   return (
-    <div className="main-container">
-      <h1>Hello react bbb</h1>
-      <img src={SampleImg} width="100" height="100" />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="admin" element={<Admin />} />
+        <Route path="user" element={<User />}>
+          <Route path="live" element={<LiveUIPage />} />
+        </Route>
+
+        <Route path="*" element={<h1>Not found</h1>} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
