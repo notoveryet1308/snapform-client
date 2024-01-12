@@ -1,12 +1,14 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
+import { AdminSocketProvider } from "../../Context/adminSocketProvider";
+import { StyledAdminWrapper } from "./style";
 
 function Admin() {
   return (
-    <div>
-      Admin
-      <Outlet />
-    </div>
+    <AdminSocketProvider>
+      <StyledAdminWrapper>
+        <Outlet />
+      </StyledAdminWrapper>
+    </AdminSocketProvider>
   );
 }
 

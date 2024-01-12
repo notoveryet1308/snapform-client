@@ -1,23 +1,23 @@
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  createBrowserRouter,
-  createRoutesFromElements
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Admin from "./modules/Admin";
-import User from "./modules/User";
-import LiveUIPage from "./modules/User/live";
+import Player from "./modules/Player";
+import PlayerLivePage from "./modules/Player/live";
+import LiveGame from "./modules/Admin/LiveGame";
 
-const router = createBrowserRouter(createRoutesFromElements(<Route></Route>));
+const HomePage = () => {
+  return <h1>Home page</h1>;
+};
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="admin" element={<Admin />} />
-        <Route path="user" element={<User />}>
-          <Route path="live" element={<LiveUIPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="admin" element={<Admin />}>
+          <Route path="live/:gameId" element={<LiveGame />} />
+        </Route>
+        <Route path="player" element={<Player />}>
+          <Route path="live/:gameId" element={<PlayerLivePage />} />
         </Route>
 
         <Route path="*" element={<h1>Not found</h1>} />
