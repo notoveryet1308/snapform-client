@@ -12,11 +12,19 @@ export enum ADMIN_ACTION {
 }
 
 export enum ADMIN_GAME_ACTION {
-  startGame = "play-game",
-  pauseGame = "pause-game",
-  skipQuestion = "skip-question",
+  PLAY_GAME = "PLAY_GAME",
+  PAUSE_GAME = "PAUSE_GAME",
+  SKIP_QUESTION = "SKIP_QUESTION",
+  PLAY_PAUSE = "PLAY_PAUSE",
 }
 
+export type AdminGameControlType = {
+  [ADMIN_GAME_ACTION.PLAY_PAUSE]:
+    | ADMIN_GAME_ACTION.PLAY_GAME
+    | ADMIN_GAME_ACTION.PAUSE_GAME
+    | null;
+  [ADMIN_GAME_ACTION.SKIP_QUESTION]: ADMIN_GAME_ACTION.SKIP_QUESTION | null;
+};
 
 export type playerOnboarding = {
   action: PLAYER_ACTION.playerOnboarding;
@@ -33,7 +41,7 @@ export type bulkPlayerOnboarded = {
   payload: PlayerDataType[];
 };
 
-export type messageFormat = {
+export type messageFormat<T> = {
   action: string;
-  payload: {};
+  payload: T;
 };

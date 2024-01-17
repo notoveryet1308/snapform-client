@@ -1,25 +1,44 @@
+import { PaperPlaneRight } from "phosphor-react";
+
 import { StyledJoiningScreenWrapper } from "./style";
 import Input from "../../../../../components/UI/Input";
-import Button from "../../../../../components/UI/Button";
+import { PrimaryButton } from "../../../../../components/UI/Button";
+import PlayerPreview from "../../../../../components/PlayerPreview";
+import { PlayerDataType } from "../../../../../type";
 
 function JoiningScreen({
   getPlayerName,
   onGameJoin,
+  isPlayerJoined,
+  playerDetails,
 }: {
   getPlayerName: ({ name }: { name: string }) => void;
   onGameJoin: () => void;
+  isPlayerJoined: boolean;
+  playerDetails: PlayerDataType | null;
 }) {
   const handleInputChange = (value: string) => {
     getPlayerName({ name: value });
   };
   return (
     <StyledJoiningScreenWrapper>
-      <Input
-        name="player-name-input"
-        type="text"
-        onInputChange={handleInputChange}
-      />
-      <Button name="Join" onClick={onGameJoin} />
+      {!isPlayerJoined ? (
+        <>
+          <Input
+            placeholder="Enter your name"
+            name="player-name-input"
+            type="text"
+            onInputChange={handleInputChange}
+          />
+          <PrimaryButton
+            icon={<PaperPlaneRight />}
+            name="Join"
+            onClick={onGameJoin}
+          />
+        </>
+      ) : (
+        playerDetails && <PlayerPreview {...playerDetails} />
+      )}
     </StyledJoiningScreenWrapper>
   );
 }

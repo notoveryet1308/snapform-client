@@ -4,15 +4,9 @@ export async function connectToServer({ path }: { path: string }) {
     const timer = setInterval(() => {
       if (ws.readyState === 1) {
         console.log("Handshake done!!");
-        clearInterval(timer);
-        // clearTimeout(timeout);
         resolve(ws);
+        clearInterval(timer);
       }
     }, 5000);
-
-    // const timeout = setTimeout(() => {
-    //   clearInterval(timer);
-    //   reject(new Error("Handshake timed out"));
-    // }, 5000); 
   });
 }

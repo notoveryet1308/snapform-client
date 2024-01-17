@@ -1,22 +1,29 @@
 import React, { ChangeEvent, useState } from "react";
-import { StyledInputWrapper } from "./style";
+import { StyledInput, StyledInputWrapper } from "./style";
 import { InputProps } from "./type";
 
-function Input({ name, type, value = "", onInputChange }: InputProps) {
+function Input({
+  name,
+  type,
+  value = "",
+  onInputChange,
+  placeholder,
+}: InputProps) {
   const [inputValue, setInputValue] = useState(value);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setInputValue(value);
-    onInputChange(value)
+    onInputChange(value);
   };
   return (
     <StyledInputWrapper>
-      <input
+      <StyledInput
         name={name}
         type={type}
         value={inputValue}
         onChange={handleInputChange}
+        placeholder={placeholder}
       />
     </StyledInputWrapper>
   );

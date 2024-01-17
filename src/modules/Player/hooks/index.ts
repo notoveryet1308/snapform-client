@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 
-import { PLAYER_ACTION, PlayerDataType } from "../../../type";
+import {
+  PLAYER_ACTION,
+  PlayerDataType,
+  AdminGameControlType,
+  ADMIN_GAME_ACTION,
+} from "../../../type";
 import { useLivePlayerSocket } from "../../../Context/livePlayerSocketProvider";
+import { useReadSocketMessage } from "../../../hooks";
 
 export const useOnboardPlayer = () => {
   const [playerDetails, setPlayerDetails] = useState<PlayerDataType | null>(
@@ -51,4 +57,39 @@ export const useOnboardPlayer = () => {
     playerDetails,
     isPlayerOnboarded,
   };
+};
+
+export const useListenAdminGameAction = () => {
+  const playerSocket = useLivePlayerSocket();
+  const [adminGameAction, setAdminGameAction] =
+    useState<AdminGameControlType | null>(null);
+
+  const serverMessage = useReadSocketMessage({ ws: playerSocket });
+
+  useEffect(() => {
+    if (serverMessage) {
+      const { action, payload } = serverMessage;
+
+      if (action === ADMIN_GAME_ACTION.PLAY_GAME) {
+        setAdminGameAction((prevControl) => ({
+          ...(prevControl || { SKIP_QUESTION: null }),
+          PLAY_PAUSE: ADMIN_GAME_ACTION[payload as "PLAY_GAME"],
+        }));
+      }
+      if (action === ADMIN_GAME_ACTION.PAUSE_GAME) {
+        setAdminGameAction((prevControl) => ({
+          ...(prevControl || { SKIP_QUESTION: null }),
+          PLAY_PAUSE: ADMIN_GAME_ACTION[payload as "PAUSE_GAME"],
+        }));
+      }
+      if (action === ADMIN_GAME_ACTION.SKIP_QUESTION) {
+        setAdminGameAction((prevControl) => ({
+          ...(prevControl || { PLAY_PAUSE: null }),
+          SKIP_QUESTION: ADMIN_GAME_ACTION[payload as "SKIP_QUESTION"],
+        }));
+      }
+    }
+  }, [serverMessage]);
+
+  return adminGameAction;
 };

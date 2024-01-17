@@ -1,16 +1,17 @@
 import styled from "styled-components";
 
 export const StyledLiveGameWrapper = styled.div`
-  padding: 40px;
+  padding: 16px 32px;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
 
-  .player-joined-wrapper {
-    margin-top: 100px;
+  .game-control {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
+    column-gap: 8px;
   }
 `;

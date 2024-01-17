@@ -22,15 +22,19 @@ export const AdminSocketProvider = ({
     connectToServer({ path: "admin" }).then((ws) => {
       const socket = ws as WebSocket;
       setAdminSocket(socket);
-      socket.send(
+    });
+  }, []);
+
+  useEffect(() => {
+    if (adminSocket) {
+      adminSocket.send(
         JSON.stringify({
           action: ADMIN_ACTION.adminOnboarding,
           payload: "ok",
         })
       );
-    });
-    // const ws = new WebSocket(`ws://localhost:3000/admin`);
-  }, []);
+    }
+  }, [adminSocket]);
 
   return (
     <AdminSocketContext.Provider value={{ adminSocket }}>

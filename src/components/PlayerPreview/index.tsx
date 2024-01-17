@@ -5,14 +5,14 @@ const PlayerPreview = ({
   name,
   id,
 }: {
-  avatar: string;
+  avatar?: string;
   name: string;
   id: string;
 }) => {
   return (
     <StyledPlayerPreview data-player-id={id}>
       <img src={avatar} className="player-preview-avatar" alt="player-avatar" />
-      <h2 className="player-preview-name">{name}</h2>
+      <h2  className="player-preview-name">{name}</h2>
     </StyledPlayerPreview>
   );
 };
