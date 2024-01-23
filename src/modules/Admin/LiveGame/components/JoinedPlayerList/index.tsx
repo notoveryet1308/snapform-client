@@ -15,10 +15,16 @@ function JoinedPlayerList({
   gameControl: AdminGameControlType | null;
   joinedPlayer: PlayerDataType[];
 }) {
+  if (
+    gameControl?.[ADMIN_GAME_ACTION.PLAY_PAUSE] ===
+      ADMIN_GAME_ACTION.PLAY_GAME ||
+    gameControl?.[ADMIN_GAME_ACTION.PLAY_PAUSE] === ADMIN_GAME_ACTION.PAUSE_GAME
+  ) {
+    return null;
+  }
   return (
     <StyledJoinedPlayerList>
-      {!gameControl?.[ADMIN_GAME_ACTION.START_GAME] &&
-      joinedPlayer.length > 0 ? (
+      {joinedPlayer.length > 0 ? (
         joinedPlayer.map(({ id, name, avatar }) => (
           <PlayerPreview key={id} id={id} name={name} avatar={avatar} />
         ))

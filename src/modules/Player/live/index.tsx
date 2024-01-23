@@ -1,12 +1,15 @@
-import { useParams } from "react-router-dom";
-import { useListenAdminGameAction, useOnboardPlayer } from "../hooks";
+// import { useParams } from "react-router-dom";
+import {
+  useGamePlayerCountDown,
+  useListenAdminGameAction,
+  useOnboardPlayer,
+} from "../hooks";
 import JoiningScreen from "./components/JoiningScreen";
 import { StyledLivePageWrapper } from "./style";
 import GameHeader from "../../../components/GameHeader";
-import { ADMIN_GAME_ACTION } from "../../../type";
 
 const LivePage = () => {
-  const params = useParams();
+  // const params = useParams();
   const {
     onPlayerJoining,
     handlePlayerDetail,
@@ -15,7 +18,7 @@ const LivePage = () => {
   } = useOnboardPlayer();
 
   const adminGameAction = useListenAdminGameAction();
-  console.log({ params });
+  const { countDownNumber } = useGamePlayerCountDown();
 
   return (
     <StyledLivePageWrapper>
@@ -29,7 +32,7 @@ const LivePage = () => {
             playerDetails={playerDetails}
           />
         ) : (
-          <h1>{adminGameAction?.[ADMIN_GAME_ACTION.PLAY_PAUSE]}</h1>
+          <h1>Game will start in {countDownNumber}</h1>
         )}
       </div>
     </StyledLivePageWrapper>

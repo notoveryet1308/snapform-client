@@ -3,8 +3,9 @@ import { StyledLiveGameWrapper } from "./style";
 import { useAdminGameAction, useGetLatestPlayer } from "../hooks";
 import GameHeader from "../../../components/GameHeader";
 import JoinedPlayerList from "./components/JoinedPlayerList";
-import { ADMIN_GAME_ACTION } from "../../../type";
 import GameControl from "./components/GameControl";
+import GamePlay from "./components/GamePlay";
+import { ADMIN_GAME_ACTION } from "../../../type";
 
 function LiveGame() {
   const joinedPlayer = useGetLatestPlayer();
@@ -20,12 +21,13 @@ function LiveGame() {
           gameControl={adminGameControl}
         />
       </GameHeader>
-      {adminGameControl?.[ADMIN_GAME_ACTION.PLAY_PAUSE] !==
+      <JoinedPlayerList
+        gameControl={adminGameControl}
+        joinedPlayer={joinedPlayer}
+      />
+      {adminGameControl?.[ADMIN_GAME_ACTION.PLAY_PAUSE] ===
         ADMIN_GAME_ACTION.PLAY_GAME && (
-        <JoinedPlayerList
-          gameControl={adminGameControl}
-          joinedPlayer={joinedPlayer}
-        />
+        <GamePlay gameControl={adminGameControl} />
       )}
     </StyledLiveGameWrapper>
   );

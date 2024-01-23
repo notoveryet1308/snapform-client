@@ -11,6 +11,12 @@ export enum ADMIN_ACTION {
   adminOnboarded = "admin-onboarded",
 }
 
+export enum GAME_COUNT_DOWN {
+  START = "count-down-start",
+  DONE = "count-down-done",
+  IN_PROGRESS = "count-down-in-progress",
+}
+
 export enum ADMIN_GAME_ACTION {
   PLAY_GAME = "PLAY_GAME",
   PAUSE_GAME = "PAUSE_GAME",
