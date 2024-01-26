@@ -51,3 +51,11 @@ export type messageFormat<T> = {
   action: string;
   payload: T;
 };
+
+export enum GAME_QUESTIONS {
+  SENDING_QUESTION = "SENDING_QUESTION",
+  SEND_QUESTION = "SEND_QUESTION",
+  PAUSE = "PAUSE",
+  SKIP = "SKIP",
+  QUESTION_ITEM = "QUESTION_ITEM",
+}

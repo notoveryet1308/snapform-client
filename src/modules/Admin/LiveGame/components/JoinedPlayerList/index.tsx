@@ -1,5 +1,3 @@
-import { Spinner } from "phosphor-react";
-
 import { StyledJoinedPlayerList } from "./style";
 import PlayerPreview from "../../../../../components/PlayerPreview";
 import {
@@ -7,6 +5,7 @@ import {
   AdminGameControlType,
   PlayerDataType,
 } from "../../../../../type";
+import Loader from "../../../../../components/UI/Loader";
 
 function JoinedPlayerList({
   gameControl,
@@ -23,18 +22,17 @@ function JoinedPlayerList({
     return null;
   }
   return (
-    <StyledJoinedPlayerList>
+    <>
       {joinedPlayer.length > 0 ? (
-        joinedPlayer.map(({ id, name, avatar }) => (
-          <PlayerPreview key={id} id={id} name={name} avatar={avatar} />
-        ))
+        <StyledJoinedPlayerList>
+          {joinedPlayer.map(({ id, name, avatar }) => (
+            <PlayerPreview key={id} id={id} name={name} avatar={avatar} />
+          ))}
+        </StyledJoinedPlayerList>
       ) : (
-        <div className="waiting-wrapper">
-          <Spinner className="spinner-icon" size={32} />
-          <h3 className="waiting-text">Waiting for players to join...</h3>
-        </div>
+        <Loader loadingText="Waiting for players to join..." />
       )}
-    </StyledJoinedPlayerList>
+    </>
   );
 }
 

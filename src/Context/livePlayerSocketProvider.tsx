@@ -22,8 +22,6 @@ export const LivePlayerProvider = ({
   useEffect(() => {
     if (!livePlayerSocket) {
       connectToServer({ path: "live-player" }).then((ws) => {
-        console.log(ws);
-        
         setLivePlayerSocket(ws as WebSocket);
       });
     }

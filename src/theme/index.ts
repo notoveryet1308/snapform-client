@@ -4,7 +4,7 @@ export const theme = {
   color: { light: LIGHT, dark: DARK },
   font: {
     family: {
-      default: "Inter, sans-serif",
+      default: `"Open Sans", sans-serif`,
     },
   },
 };

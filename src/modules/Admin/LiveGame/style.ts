@@ -6,7 +6,7 @@ export const StyledLiveGameWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 40px;
+  row-gap: 20px;
 
   .game-control {
     display: flex;

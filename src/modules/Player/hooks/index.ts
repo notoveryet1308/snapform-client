@@ -7,6 +7,7 @@ import {
   AdminGameControlType,
   ADMIN_GAME_ACTION,
   GAME_COUNT_DOWN,
+  GAME_QUESTIONS,
 } from "../../../type";
 import { useLivePlayerSocket } from "../../../Context/livePlayerSocketProvider";
 import { useReadSocketMessage } from "../../../hooks";
@@ -98,6 +99,7 @@ export const useListenAdminGameAction = () => {
 export const useGamePlayerCountDown = () => {
   const socket = useLivePlayerSocket();
   const [countDownNumber, setCountDownNumber] = useState<number>();
+  const [isCountDownDone, setCountDownDone] = useState<boolean>(false);
 
   const serverMessage = useReadSocketMessage<number>({ ws: socket });
 
@@ -108,8 +110,28 @@ export const useGamePlayerCountDown = () => {
       if (action === GAME_COUNT_DOWN.IN_PROGRESS) {
         setCountDownNumber(() => payload);
       }
+      if (action === GAME_COUNT_DOWN.DONE) {
+        setCountDownDone(() => true);
+      }
     }
   }, [serverMessage, socket]);
 
-  return { countDownNumber };
+  return { countDownNumber, isCountDownDone };
+};
+
+export const usePlayerGameManager = () => {
+  const [currentQuestion, setCurrentQuestion] = useState();
+  const socket = useLivePlayerSocket();
+  const serverMessage = useReadSocketMessage<object>({ ws: socket });
+
+  useEffect(() => {
+    if (socket && serverMessage) {
+      const { action, payload } = serverMessage;
+      if (action === GAME_QUESTIONS.QUESTION_ITEM) {
+        setCurrentQuestion(payload);
+      }
+    }
+  }, [socket, serverMessage]);
+
+  return { currentQuestion };
 };

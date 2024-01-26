@@ -1,39 +1,27 @@
 // import { useParams } from "react-router-dom";
-import {
-  useGamePlayerCountDown,
-  useListenAdminGameAction,
-  useOnboardPlayer,
-} from "../hooks";
-import JoiningScreen from "./components/JoiningScreen";
+import { useGamePlayerCountDown, useListenAdminGameAction } from "../hooks";
+
 import { StyledLivePageWrapper } from "./style";
 import GameHeader from "../../../components/GameHeader";
+import OnboardPlayer from "./components/OnboardPlayer";
+import GameManager from "./components/GameManager";
 
 const LivePage = () => {
   // const params = useParams();
-  const {
-    onPlayerJoining,
-    handlePlayerDetail,
-    isPlayerOnboarded,
-    playerDetails,
-  } = useOnboardPlayer();
 
   const adminGameAction = useListenAdminGameAction();
-  const { countDownNumber } = useGamePlayerCountDown();
+  const { countDownNumber, isCountDownDone } = useGamePlayerCountDown();
 
   return (
     <StyledLivePageWrapper>
       <GameHeader gameName="Javascript trivia" />
       <div className="game-container">
-        {!adminGameAction ? (
-          <JoiningScreen
-            getPlayerName={handlePlayerDetail}
-            onGameJoin={onPlayerJoining}
-            isPlayerJoined={isPlayerOnboarded}
-            playerDetails={playerDetails}
-          />
-        ) : (
-          <h1>Game will start in {countDownNumber}</h1>
-        )}
+        <OnboardPlayer
+          adminGameAction={!!adminGameAction}
+          isCountDownDone={isCountDownDone}
+          countDownNumber={countDownNumber}
+        />
+        {isCountDownDone && <GameManager />}
       </div>
     </StyledLivePageWrapper>
   );
