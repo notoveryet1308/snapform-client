@@ -6,19 +6,19 @@ export const StyledPlayerPreview = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
-  background-color: ${({ theme }) => theme.color.background.tertiary};
+  background-color: ${({ theme }) => theme.color.background.faded};
   border-radius: 8px;
   position: relative;
   gap: 16px;
-  border: 1px solid ${({ theme }) => theme.color.border.accent};
 
   .player-preview-avatar {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
   }
 
   .player-preview-name {
     font-size: 20px;
-    color: ${({ theme }) => theme.color.text.accent};
+    line-height: 24px;
+    color: ${({ theme }) => theme.color.text.primary};
   }
 `;

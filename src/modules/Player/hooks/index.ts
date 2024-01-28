@@ -25,6 +25,8 @@ export const useOnboardPlayer = () => {
       const playerId = nanoid();
       const avatarLink = `https://robohash.org/${playerId}`;
       setPlayerDetails({ id: playerId, avatar: avatarLink, name });
+    } else {
+      setPlayerDetails({ id: "", avatar: "", name });
     }
   };
 

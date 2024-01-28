@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledJoinedPlayerList = styled.div`
-  flex: 1;
+  padding: 16px 24px;
   display: flex;
   justify-content: center;
   align-items: flex-start;

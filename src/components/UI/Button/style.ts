@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledBaseButton = styled.button`
-  padding: 8px 16px;
+  padding: 9px 16px;
   justify-content: center;
   display: flex;
   border: none;
@@ -11,7 +11,7 @@ export const StyledBaseButton = styled.button`
   column-gap: 4px;
   font-family: ${({ theme }) => theme.font.family.default};
   font-size: 14px;
-  line-height: 16px;
+  line-height: 20px;
   border: 1px solid transparent;
 
   .btn-icon {
@@ -24,15 +24,8 @@ export const StyledBaseButton = styled.button`
   }
 
   &.primary {
-    background-color: ${({ theme }) => theme.color.button.bg_primary};
-    color: ${({ theme }) => theme.color.text.primary};
-
-    &:hover {
-      background-color: ${({ theme }) => theme.color.button.bg_primary_hover};
-    }
-    &:active {
-      background-color: ${({ theme }) => theme.color.button.bg_primary_active};
-    }
+    background-color: ${({ theme }) => theme.color.background.primary};
+    color: ${({ theme }) => theme.color.white};
   }
 
   &.circle {
@@ -44,13 +37,7 @@ export const StyledBaseButton = styled.button`
 
   &.disabled {
     cursor: not-allowed;
-    background-color: ${({ theme }) => theme.color.button.disabled};
-    color: ${({ theme }) => theme.color.text.disabled};
-    &:hover {
-      background-color: ${({ theme }) => theme.color.button.disabled};
-    }
-    &:active {
-      background-color: ${({ theme }) => theme.color.button.disabled};
-    }
+    background-color: ${({ theme }) => theme.color.disabled.primary};
+    color: ${({ theme }) => theme.color.disabled.tertiary};
   }
 `;

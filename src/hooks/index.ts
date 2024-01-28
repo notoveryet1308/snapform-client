@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { messageFormat } from "../type";
+import { messageFormat, PlayerDataType, PLAYER_ACTION } from "../type";
 
 export const useReadSocketMessage = <T>({
   ws,
@@ -26,4 +26,36 @@ export const useReadSocketMessage = <T>({
   }, [ws]);
 
   return serverMessage;
+};
+
+export const useGetLatestPlayer = ({
+  socket,
+}: {
+  socket: WebSocket | null;
+}) => {
+  const [joinedPlayers, setJoinedPlayers] = useState<PlayerDataType[]>([]);
+  const serverMessage = useReadSocketMessage<PlayerDataType | PlayerDataType[]>(
+    { ws: socket }
+  );
+
+  useEffect(() => {
+    if (serverMessage && socket) {
+      const { action, payload } = serverMessage;
+
+      if (action === PLAYER_ACTION.playerOnboarded) {
+        setJoinedPlayers((prevPlayers) => [
+          ...prevPlayers,
+          payload as PlayerDataType,
+        ]);
+      }
+
+      if (action === PLAYER_ACTION.bulkPlayerOnboarded) {
+        if (Array.isArray(payload)) {
+          setJoinedPlayers(payload as PlayerDataType[]);
+        }
+      }
+    }
+  }, [serverMessage, socket]);
+
+  return joinedPlayers;
 };

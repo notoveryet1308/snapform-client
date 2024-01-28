@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
-export const StyledJoiningScreenWrapper = styled.div`
-  width: 300px;
+export const StyledOnboardPlayerWrapper = styled.div`
+  width: 100%;
   height: 100%;
+  padding: 0 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  padding-bottom: 55px;
 `;

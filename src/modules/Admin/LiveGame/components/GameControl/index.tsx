@@ -4,6 +4,8 @@ import { PrimaryButton } from "../../../../../components/UI/Button";
 import { ADMIN_GAME_ACTION, AdminGameControlType } from "../../../../../type";
 import { getPlayPauseIcon } from "./config";
 
+import { StyledGameControlWrapper } from "./style";
+
 function GameControl({
   gameControl,
   isPlayerJoined,
@@ -16,7 +18,7 @@ function GameControl({
   onGamePlayPause: () => void;
 }) {
   return (
-    <div className="game-control">
+    <StyledGameControlWrapper>
       <PrimaryButton
         onlyIcon={true}
         shape="circle"
@@ -35,7 +37,7 @@ function GameControl({
         disabled={!isPlayerJoined}
         onClick={onGameSkipQuestionAction}
       />
-    </div>
+    </StyledGameControlWrapper>
   );
 }
 

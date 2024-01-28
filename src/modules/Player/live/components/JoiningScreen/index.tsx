@@ -1,7 +1,7 @@
 import { PaperPlaneRight } from "phosphor-react";
 
 import { StyledJoiningScreenWrapper } from "./style";
-import Input from "../../../../../components/UI/Input";
+import { Input, TextArea } from "../../../../../components/UI/Input";
 import { PrimaryButton } from "../../../../../components/UI/Button";
 import PlayerPreview from "../../../../../components/PlayerPreview";
 import { PlayerDataType } from "../../../../../type";
@@ -20,6 +20,7 @@ function JoiningScreen({
   const handleInputChange = (value: string) => {
     getPlayerName({ name: value });
   };
+
   return (
     <StyledJoiningScreenWrapper>
       {!isPlayerJoined ? (
@@ -29,11 +30,14 @@ function JoiningScreen({
             name="player-name-input"
             type="text"
             onInputChange={handleInputChange}
+            maxCharLimit={40}
           />
+
           <PrimaryButton
             icon={<PaperPlaneRight />}
             name="Join"
             onClick={onGameJoin}
+            disabled={!playerDetails?.name}
           />
         </>
       ) : (

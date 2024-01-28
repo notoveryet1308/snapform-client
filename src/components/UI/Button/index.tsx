@@ -45,4 +45,5 @@ function TertiaryButton(props: TertiaryButtonProps) {
   return <BaseButton variant="tertiary" {...props} />;
 }
 
+export default BaseButton;
 export { PrimaryButton, SecondaryButton, TertiaryButton };

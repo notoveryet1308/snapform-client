@@ -11,7 +11,7 @@ export const StyledLoadWrapper = styled.div`
 
   .loader {
     border: 8px solid ${({ theme }) => theme.color.border.primary};
-    border-left-color: ${({ theme }) => theme.color.border.accent};
+    border-left-color: ${({ theme }) => theme.color.background.primary};
     border-radius: 50%;
 
     animation: spin 1s linear infinite;
@@ -33,7 +33,7 @@ export const StyledLoadWrapper = styled.div`
   }
 
   .loading-text {
-    color: ${({ theme }) => theme.color.text.accent};
+    color: ${({ theme }) => theme.color.text.primary};
     font-size: 14px;
     line-height: 20px;
     font-weight: 600;

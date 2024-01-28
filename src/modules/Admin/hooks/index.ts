@@ -1,5 +1,9 @@
 import { useAdminGameAction } from "./useAdminGameAction";
-import { useGetLatestPlayer } from "./useGetLatestPlayer";
-import { useGameCountDown } from "./useGamePlay";
+import { useGetLatestPlayerForAdmin } from "./useGetLatestPlayerForAdmin";
+import { useGameAdminCountDown } from "./useGamePlay";
 
-export { useAdminGameAction, useGetLatestPlayer };
+export {
+  useAdminGameAction,
+  useGetLatestPlayerForAdmin,
+  useGameAdminCountDown,
+};

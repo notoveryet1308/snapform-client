@@ -2,7 +2,6 @@
 import { useGamePlayerCountDown, useListenAdminGameAction } from "../hooks";
 
 import { StyledLivePageWrapper } from "./style";
-import GameHeader from "../../../components/GameHeader";
 import OnboardPlayer from "./components/OnboardPlayer";
 import GameManager from "./components/GameManager";
 
@@ -14,15 +13,12 @@ const LivePage = () => {
 
   return (
     <StyledLivePageWrapper>
-      <GameHeader gameName="Javascript trivia" />
-      <div className="game-container">
-        <OnboardPlayer
-          adminGameAction={!!adminGameAction}
-          isCountDownDone={isCountDownDone}
-          countDownNumber={countDownNumber}
-        />
-        {isCountDownDone && <GameManager />}
-      </div>
+      <OnboardPlayer
+        adminGameAction={!!adminGameAction}
+        isCountDownDone={isCountDownDone}
+        countDownNumber={countDownNumber}
+      />
+      {isCountDownDone && <GameManager />}
     </StyledLivePageWrapper>
   );
 };
