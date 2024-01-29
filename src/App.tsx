@@ -3,9 +3,28 @@ import Admin from "./modules/Admin";
 import Player from "./modules/Player";
 import PlayerLivePage from "./modules/Player/live";
 import LiveGame from "./modules/Admin/LiveGame";
+import { ChoiceButtonEdit, ChoiceButton } from "./components/UI/ChoiceButton";
 
 const HomePage = () => {
-  return <h1>Home page</h1>;
+  return (
+    <div style={{ padding: "20px" }}>
+      <ChoiceButtonEdit
+        getOptionDetail={(data) => {
+          console.log({ data });
+        }}
+        placeholder="Test choice edit btn"
+      />
+      <ChoiceButton
+        label="Hello people!"
+        order="A"
+        isCorrectChoice
+        onChoiceClick={(value) => {
+          console.log({ value });
+        }}
+        isSelectionDisabled
+      />
+    </div>
+  );
 };
 
 const App = () => {

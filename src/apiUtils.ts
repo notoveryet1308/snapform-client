@@ -10,3 +10,5 @@ export async function connectToServer({ path }: { path: string }) {
     }, 5000);
   });
 }
+
+export const noop = () => {};

@@ -41,3 +41,35 @@ export const StyledBaseButton = styled.button`
     color: ${({ theme }) => theme.color.disabled.tertiary};
   }
 `;
+
+export const StyledCheckButtonWrapper = styled.div<{
+  $isChecked: boolean;
+  $isDisabled?: boolean;
+}>`
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme, $isDisabled }) =>
+    !$isDisabled ? theme.color.success.primary : theme.color.disabled.primary};
+  cursor: ${({ $isDisabled }) => ($isDisabled ? "no-drop" : "pointer")};
+
+  .check-btn-content {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({ theme, $isChecked }) =>
+      !$isChecked ? theme.color.background.faded : theme.color.success.primary};
+
+    .checked-icon {
+      color: ${({ theme }) => theme.color.white};
+    }
+  }
+`;

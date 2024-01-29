@@ -13,7 +13,7 @@ export const LIGHT = {
   background: {
     primary: "#1E2974",
     secondary: "#8C9CFB",
-    tertiary: "#DCE1FE",
+    tertiary: "#C7CEFF",
     faded: "#EBEDF9",
     // disabled: "#E5E5E5",
     // successStrong: "#35C759",
@@ -59,7 +59,7 @@ export const DARK = {
   background: {
     primary: "#1E2974",
     secondary: "#8C9CFB",
-    tertiary: "#DCE1FE",
+    tertiary: "#C7CEFF",
     faded: "#EBEDF9",
     // disabled: "#E5E5E5",
     // successStrong: "#35C759",

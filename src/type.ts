@@ -59,3 +59,9 @@ export enum GAME_QUESTIONS {
   SKIP = "SKIP",
   QUESTION_ITEM = "QUESTION_ITEM",
 }
+
+export interface QuestionOptionType {
+  order: string;
+  label: string;
+  isCorrectChoice: boolean;
+}

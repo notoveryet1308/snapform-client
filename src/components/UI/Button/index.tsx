@@ -1,3 +1,5 @@
+import CheckButton from "./CheckButton";
+
 import { StyledBaseButton } from "./style";
 import {
   BaseButtonProps,
@@ -46,4 +48,4 @@ function TertiaryButton(props: TertiaryButtonProps) {
 }
 
 export default BaseButton;
-export { PrimaryButton, SecondaryButton, TertiaryButton };
+export { PrimaryButton, SecondaryButton, TertiaryButton, CheckButton };
