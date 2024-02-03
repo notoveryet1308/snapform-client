@@ -9,6 +9,8 @@ function Input({
   onInputChange,
   placeholder,
   maxCharLimit,
+  size = "medium",
+  className = "",
 }: InputProp) {
   const { remainingCharCount, inputValue, handleInputChange } =
     useCheckCharacterLimit({
@@ -19,7 +21,7 @@ function Input({
 
   return (
     <>
-      <StyledInputWrapper>
+      <StyledInputWrapper className={`${className} ${size}`}>
         <StyledInput
           name={name}
           type={type}

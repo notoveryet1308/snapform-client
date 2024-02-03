@@ -35,6 +35,10 @@ export const StyledBaseButton = styled.button`
     padding: 0;
   }
 
+  &.small{
+    padding: 4px 8px;
+  }
+
   &.disabled {
     cursor: not-allowed;
     background-color: ${({ theme }) => theme.color.disabled.primary};

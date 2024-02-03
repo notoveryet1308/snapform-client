@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const StyledLiveGameHeaderWrapper = styled.div`
   display: flex;
@@ -73,5 +74,40 @@ export const StyledLiveGameHeaderWrapper = styled.div`
         font-weight: 600;
       }
     }
+  }
+`;
+
+export const StyledMainHeaderWrapper = styled.div`
+  display: flex;
+  padding: 12px 24px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid ${({ theme }) => theme.color.border.secondary};
+
+  .main-navigation {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .side-navigation {
+    width: 40px;
+    height: 40px;
+    background-color: ${({ theme }) => theme.color.background.faded};
+    border-radius: 50%;
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 20px;
+  color: ${({ theme }) => theme.color.text.primary};
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 300ms ease-in-out;
+
+  &:hover {
+    color: ${({ theme }) => theme.color.text.tertiary};
   }
 `;

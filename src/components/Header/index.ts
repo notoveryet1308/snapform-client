@@ -1,3 +1,3 @@
 import LiveGameHeader from "./LiveGameHeader";
-
-export { LiveGameHeader };
+import MainHeader from "./MainHeader";
+export { LiveGameHeader, MainHeader };

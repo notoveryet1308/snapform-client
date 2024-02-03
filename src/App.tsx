@@ -4,6 +4,10 @@ import Player from "./modules/Player";
 import PlayerLivePage from "./modules/Player/live";
 import LiveGame from "./modules/Admin/LiveGame";
 import { ChoiceButtonEdit, ChoiceButton } from "./components/UI/ChoiceButton";
+import FormBuilder from "./modules/Admin/FormBuilder";
+import Dashboard from "./modules/Admin/Dashboard";
+import QuizBuilder from "./modules/Admin/FormBuilder/QuizBuilder";
+import DynamicFormBuilder from "./modules/Admin/FormBuilder/DynamicFormBuilder";
 
 const HomePage = () => {
   return (
@@ -33,6 +37,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="admin" element={<Admin />}>
+          <Route path="build" element={<FormBuilder />}>
+            <Route path="live-quiz" element={<QuizBuilder />} />
+            <Route path="dynamic-form" element={<DynamicFormBuilder />} />
+          </Route>
+          <Route path="dashboard" element={<Dashboard />}></Route>
+
           <Route path="live/:gameId" element={<LiveGame />} />
         </Route>
         <Route path="player" element={<Player />}>

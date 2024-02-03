@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledInputWrapper = styled.div`
   background-color: ${({ theme }) => theme.color.background.tertiary};
-  padding: 11px 16px;
+  padding: 8px 16px;
   border-radius: 4px;
   margin: 0;
   display: flex;
@@ -11,6 +11,10 @@ export const StyledInputWrapper = styled.div`
   transition: border-bottom 300ms ease-in-out;
   justify-content: space-between;
   width: 100%;
+
+  &.small {
+    padding: 4px 8px;
+  }
 
   .input-char-limit {
     font-size: 12px;
@@ -33,6 +37,7 @@ export const StyledInput = styled.input`
   background-color: inherit;
   outline: none;
   font-size: 14px;
+  line-height: 20px;
   color: ${({ theme }) => theme.color.text.primary};
 
   &::placeholder {

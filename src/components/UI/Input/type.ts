@@ -4,6 +4,8 @@ export type CommonInputProps = {
   onInputChange: (value: string) => void;
   placeholder: string;
   maxCharLimit?: number;
+  size?: "small" | "medium";
+  className?: string;
 };
 
 export interface InputProp extends CommonInputProps {
