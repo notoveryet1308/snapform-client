@@ -5,8 +5,10 @@ export const StyledChoiceButtonBase = styled.button`
   width: 100%;
   border: none;
   cursor: pointer;
+  border-radius: 4px;
 
   .choice-btn-content {
+    position: relative;
     display: flex;
     align-items: center;
     column-gap: 12px;
@@ -15,6 +17,7 @@ export const StyledChoiceButtonBase = styled.button`
     transition: transform 300ms ease-out;
     background-color: ${({ theme }) => theme.color.background.faded};
     padding-right: 12px;
+    z-index: 2;
 
     .choice-btn-number {
       display: flex;
@@ -36,7 +39,7 @@ export const StyledChoiceButtonBase = styled.button`
 
   .choice-btn-overlay {
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     width: 100%;
     display: flex;
     top: 4px;
@@ -75,6 +78,9 @@ export const StyledChoiceButtonBase = styled.button`
 `;
 
 export const StyledChoiceButtonEditWrapper = styled.div`
+  position: relative;
+  width: 100%;
+
   .choice-btn-input {
     border: none;
     background-color: inherit;

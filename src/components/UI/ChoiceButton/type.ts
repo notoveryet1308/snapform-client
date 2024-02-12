@@ -6,6 +6,9 @@ export type ChoiceButtonEditProp = {
   placeholder: string;
   getOptionDetail: (value: QuestionOptionType) => void;
   choiceOrder?: string;
+  className?: string;
+  hideChoiceOrder?: boolean;
+  disableCheckbox?: boolean;
 };
 
 export interface ChoiceButtonBaseProps {
@@ -16,11 +19,14 @@ export interface ChoiceButtonBaseProps {
   onClick: () => void;
   isSelected?: boolean;
   isSelectionDisabled?: boolean;
+  className?: string;
+  hideChoiceOrder?: boolean;
 }
 
 export interface ChoiceButtonProps {
   order: string;
   label: string;
+  className?: string;
   onChoiceClick: ({
     choiceData,
     isSelected,

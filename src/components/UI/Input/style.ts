@@ -80,8 +80,16 @@ export const StyledTextAreaWrapper = styled.div<{
 export const StyledTextArea = styled.textarea<{ isResizable?: boolean }>`
   border: none;
   background: inherit;
+  width: 100%;
   max-width: 100%;
   max-height: 100%;
   resize: ${({ isResizable }) => (isResizable ? "auto" : "none")};
   outline: none;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: ${({ theme }) => theme.font.family.default};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.color.text.tertiary};
+  }
 `;

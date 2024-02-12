@@ -28,6 +28,11 @@ export const StyledBaseButton = styled.button`
     color: ${({ theme }) => theme.color.white};
   }
 
+   &.secondary {
+    background-color: ${({ theme }) => theme.color.background.secondary};
+    color: ${({ theme }) => theme.color.white};
+  }
+
   &.circle {
     border-radius: 50%;
     width: 32px;

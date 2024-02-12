@@ -22,6 +22,7 @@ function ChoiceButtonBase({
   isPreviewMode,
   isSelected,
   isSelectionDisabled,
+  hideChoiceOrder = false,
 }: ChoiceButtonBaseProps) {
   return (
     <StyledChoiceButtonBase
@@ -33,7 +34,7 @@ function ChoiceButtonBase({
       onClick={onClick}
     >
       <div className="choice-btn-content">
-        {!!choiceOrder && (
+        {!hideChoiceOrder && (
           <div className="choice-btn-number">{choiceOrder}</div>
         )}
         {children}
@@ -44,32 +45,42 @@ function ChoiceButtonBase({
 }
 
 function ChoiceButtonEdit({
-  choiceOrder = "A",
+  choiceOrder,
   placeholder = "Add your answer",
   getOptionDetail,
+  className,
+  hideChoiceOrder = false,
+  disableCheckbox,
 }: ChoiceButtonEditProp) {
   const {
     handleChangeInput,
     inputValue,
     handleCorrectOption,
     isCorrectOption,
+    onInputBlurHandler,
   } = useChoiceBtnInput({
     getOptionDetail,
     choiceOrder,
   });
   return (
-    <StyledChoiceButtonEditWrapper>
-      <ChoiceButtonBase isEdit choiceOrder={choiceOrder} onClick={noop}>
+    <StyledChoiceButtonEditWrapper className={className}>
+      <ChoiceButtonBase
+        isEdit
+        choiceOrder={choiceOrder}
+        onClick={noop}
+        hideChoiceOrder={hideChoiceOrder}
+      >
         <input
           className="choice-btn-input"
           value={inputValue}
           onChange={handleChangeInput}
           placeholder={placeholder}
+          onBlur={onInputBlurHandler}
         />
         <CheckButton
           getCheckedState={handleCorrectOption}
           shouldUncheck={isCorrectOption && !inputValue ? true : false}
-          disable={!inputValue}
+          disable={!inputValue || !!disableCheckbox}
         />
       </ChoiceButtonBase>
     </StyledChoiceButtonEditWrapper>
@@ -82,6 +93,7 @@ function ChoiceButton({
   isCorrectChoice,
   onChoiceClick,
   isSelectionDisabled,
+  className,
 }: ChoiceButtonProps) {
   const [isSelected, setSelected] = useState(false);
   const handleOnChoiceClick = useCallback(() => {
@@ -99,6 +111,7 @@ function ChoiceButton({
     <StyledChoiceButtonWrapper
       $isSelected={isSelected}
       $isSelectionDisabled={isSelectionDisabled}
+      className={className}
     >
       <ChoiceButtonBase
         isPreviewMode

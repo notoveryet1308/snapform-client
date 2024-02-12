@@ -5,4 +5,6 @@ export const StyledAdminWrapper = styled.div`
   height: 100vh;
   background-color: inherit;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 `;

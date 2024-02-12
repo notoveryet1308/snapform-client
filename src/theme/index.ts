@@ -1,4 +1,5 @@
 import { DARK, LIGHT } from "./colors";
+import { breakpoints } from "./breakpoint";
 
 export const theme = {
   color: { light: LIGHT, dark: DARK },
@@ -7,4 +8,5 @@ export const theme = {
       default: `"Open Sans", sans-serif`,
     },
   },
+  breakpoints,
 };

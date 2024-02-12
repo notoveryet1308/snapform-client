@@ -37,4 +37,4 @@ function TextArea({
   );
 }
 
-export default TextArea;
+export default React.memo(TextArea);

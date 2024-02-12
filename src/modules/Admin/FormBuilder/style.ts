@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 export const StyledFormBuilderWrapper = styled.div<{ $isQuiz: boolean }>`
   width: 100%;
-  height: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+
 
   .form-category-and-title {
     display: flex;
@@ -16,7 +17,7 @@ export const StyledFormBuilderWrapper = styled.div<{ $isQuiz: boolean }>`
     line-height: 22px;
     height: 50px;
     padding: 0 24px;
-    border-bottom: 1px solid ${({ theme }) => theme.color.border.tertiary};
+    border-bottom: 1px solid ${({ theme }) => theme.color.background.faded};
 
     .form-category {
       background-color: ${({ $isQuiz, theme }) =>
@@ -32,7 +33,7 @@ export const StyledFormBuilderWrapper = styled.div<{ $isQuiz: boolean }>`
 
     .form-title-and-edit {
       display: flex;
-      gap: 16px;
+      gap: 8px;
       align-items: center;
 
       .form-title {
@@ -40,5 +41,12 @@ export const StyledFormBuilderWrapper = styled.div<{ $isQuiz: boolean }>`
         cursor: pointer;
       }
     }
+  }
+
+  .builder-content {
+    display: flex;
+    flex: 1;
+    height: calc(100% - 55px);
+    background-color: ${({ theme }) => theme.color.almostWhite};
   }
 `;

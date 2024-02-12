@@ -6,7 +6,7 @@ export const StyledLiveGameHeaderWrapper = styled.div`
   padding: 12px 24px;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${({ theme }) => theme.color.border.secondary};
+  border-bottom: 1px solid ${({ theme }) => theme.color.background.faded};
 
   .game-name {
     background-color: ${({ theme }) => theme.color.background.faded};
@@ -82,7 +82,7 @@ export const StyledMainHeaderWrapper = styled.div`
   padding: 12px 24px;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${({ theme }) => theme.color.border.secondary};
+  border-bottom: 1px solid ${({ theme }) => theme.color.background.faded};
 
   .main-navigation {
     display: flex;

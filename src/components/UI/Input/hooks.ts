@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useCallback } from "react";
+import { useState, ChangeEvent, useCallback, useEffect } from "react";
 
 export const useCheckCharacterLimit = ({
   charCount = 4000,
@@ -24,6 +24,10 @@ export const useCheckCharacterLimit = ({
     },
     []
   );
+
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
 
   return {
     remainingCharCount,

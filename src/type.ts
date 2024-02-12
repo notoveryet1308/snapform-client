@@ -60,8 +60,41 @@ export enum GAME_QUESTIONS {
   QUESTION_ITEM = "QUESTION_ITEM",
 }
 
+export enum ALL_QUESTION_TYPES {
+  MULTI_SELECT = "multi-select",
+  YES_NO_SELECT = "yes-no-select",
+  SINGLE_SELECT = "single-select",
+}
+
+export const ALL_QUESTION_LIST: { [k: string]: ALL_QUESTION_TYPES } = {
+  MULTI_SELECT: ALL_QUESTION_TYPES.MULTI_SELECT,
+  YES_NO_SELECT: ALL_QUESTION_TYPES.YES_NO_SELECT,
+  SINGLE_SELECT: ALL_QUESTION_TYPES.SINGLE_SELECT,
+};
+
 export interface QuestionOptionType {
   order: string;
   label: string;
   isCorrectChoice: boolean;
 }
+
+export interface QuizQuestionType {
+  id: string;
+  questionType: ALL_QUESTION_TYPES;
+  title: string;
+  description: string;
+  option: QuestionOptionType[] | [];
+}
+
+export interface YesNoOptionType {
+  label: string;
+  isCorrectChoice: boolean;
+}
+
+export type MultiSelectDataType = {
+  questionType: string;
+  title: string;
+  description: string;
+  option: QuestionOptionType[] | [];
+  id: string;
+};

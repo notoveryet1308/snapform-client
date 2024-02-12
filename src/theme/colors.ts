@@ -1,5 +1,7 @@
 export const LIGHT = {
+  almostWhite: "#f4f4f4",
   white: "#fff",
+  modalMaskOverlay: "rgb(55 55 55 / 82%)",
   text: {
     primary: "#1E2974",
     secondary: "#495187",
@@ -45,7 +47,9 @@ export const LIGHT = {
 };
 
 export const DARK = {
+  almostWhite: "f4f4f4",
   white: "#fff",
+  modalMaskOverlay: "rgb(55 55 55 / 82%)",
   text: {
     primary: "#1E2974",
     secondary: "#495187",
