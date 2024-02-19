@@ -9,6 +9,7 @@ function QTypeContentLabel({
   activeQuestionId,
   id,
   onClick,
+  showBorderRadius,
 }: {
   qType: ALL_QUESTION_TYPES;
   label?: string;
@@ -16,11 +17,13 @@ function QTypeContentLabel({
   activeQuestionId?: string;
   id?: string;
   onClick?: () => void;
+  showBorderRadius?: boolean;
 }) {
   return (
     <StyledQTypeContentLabelWrapper
       onClick={onClick}
       $isActive={activeQuestionId === id}
+      $showBorderRadius={!!showBorderRadius}
     >
       {!!order && <p className="qtype-order">{order}.</p>}
       <div className="qtype-icon-wrapper">{Q_TYPE_ICONS[qType].icon}</div>

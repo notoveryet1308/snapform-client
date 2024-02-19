@@ -1,7 +1,8 @@
 import ChoiceButtonCombo from "./ChoiceButtonCombo";
 import { Input, TextArea } from "../../UI/Input";
 import { StyledMultiSelectWrapper } from "./style";
-import { useMultiSelectData, MultiSelectProps } from "./hooks";
+import { useMultiSelectData } from "./hooks";
+import { QuestionSelectProps } from "../../../type";
 
 const COMBO_OPTION_ONE = [
   { order: "A", placeholder: "Add answer" },
@@ -14,20 +15,18 @@ const COMBO_OPTION_TWO = [
 ];
 
 const MultiSelect = ({
-  multiSelectValueFromParent,
-  sendMultiSelectDataToParent,
-}: MultiSelectProps) => {
+  valueFromParent,
+  sendDataToParent,
+}: QuestionSelectProps) => {
   const {
     multiSelectData,
     handleQuestionDescription,
     handleQuestionTitle,
     getOptionData,
   } = useMultiSelectData({
-    sendMultiSelectDataToParent,
-    multiSelectValueFromParent,
+    valueFromParent,
+    sendDataToParent,
   });
-
-  console.log({ multiSelectData, multiSelectValueFromParent });
 
   return (
     <StyledMultiSelectWrapper>

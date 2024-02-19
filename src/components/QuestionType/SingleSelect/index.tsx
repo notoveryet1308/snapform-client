@@ -1,7 +1,8 @@
 import ChoiceButtonCombo from "./ChoiceButtonCombo";
 import { Input, TextArea } from "../../UI/Input";
 import { StyledSingleSelectWrapper } from "./style";
-import { useMultiSelectData, MultiSelectProps } from "./hooks";
+import { useSingleSelectData } from "./hooks";
+import { QuestionSelectProps } from "../../../type";
 
 const COMBO_OPTION_ONE = [
   { order: "A", placeholder: "Add answer" },
@@ -14,20 +15,19 @@ const COMBO_OPTION_TWO = [
 ];
 
 const SingleSelect = ({
-  multiSelectValueFromParent,
-  sendMultiSelectDataToParent,
-}: MultiSelectProps) => {
+  valueFromParent,
+  sendDataToParent,
+}: QuestionSelectProps) => {
   const {
-    multiSelectData,
+    singleSelectData,
     handleQuestionDescription,
     handleQuestionTitle,
     getOptionData,
-  } = useMultiSelectData({
-    sendMultiSelectDataToParent,
-    multiSelectValueFromParent,
+    handleDisableSelectionOption,
+  } = useSingleSelectData({
+    valueFromParent,
+    sendDataToParent,
   });
-
-  //   console.log(multiSelectData);
 
   return (
     <StyledSingleSelectWrapper>
@@ -39,24 +39,26 @@ const SingleSelect = ({
           name="single-select-title"
           maxCharLimit={100}
           onInputChange={handleQuestionTitle}
-          value={multiSelectData.title}
+          value={singleSelectData.title}
         />
         <TextArea
           placeholder="Enter description (optional)"
           maxCharLimit={400}
           onInputChange={handleQuestionDescription}
           name="single-select-description"
-          value={multiSelectData.description}
+          value={singleSelectData.description}
         />
       </div>
       <div className="question-option">
         <ChoiceButtonCombo
           choiceData={COMBO_OPTION_ONE}
           getOptionDetail={getOptionData}
+          handleDisableSelectionOption={handleDisableSelectionOption}
         />
         <ChoiceButtonCombo
           choiceData={COMBO_OPTION_TWO}
           getOptionDetail={getOptionData}
+          handleDisableSelectionOption={handleDisableSelectionOption}
         />
       </div>
     </StyledSingleSelectWrapper>

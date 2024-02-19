@@ -12,11 +12,13 @@ type ChoiceButtonDataType = {
 type ChoiceButtonComboProp = {
   choiceData: ChoiceButtonDataType[];
   getOptionDetail: (value: QuestionOptionType) => void;
+  handleDisableSelectionOption: ({ order }: { order: string }) => boolean;
 };
 
 function ChoiceButtonCombo({
   choiceData,
   getOptionDetail,
+  handleDisableSelectionOption,
 }: ChoiceButtonComboProp) {
   return (
     <StyledChoiceButtonComboWrapper>
@@ -26,6 +28,9 @@ function ChoiceButtonCombo({
           choiceOrder={choice.order}
           placeholder={choice.placeholder}
           getOptionDetail={getOptionDetail}
+          disableCheckbox={handleDisableSelectionOption({
+            order: choice.order,
+          })}
         />
       ))}
     </StyledChoiceButtonComboWrapper>

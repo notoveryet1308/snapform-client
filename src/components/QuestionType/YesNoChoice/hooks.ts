@@ -1,26 +1,29 @@
 import { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 
-import { QuestionOptionType } from "../../../type";
-
-type YesNoSelectDataType = {
-  questionType: string;
-  title: string;
-  description: string;
-  option: QuestionOptionType[];
-};
+import {
+  ALL_QUESTION_TYPES,
+  QuestionOptionType,
+  QuestionSelectProps,
+  QuizQuestionType,
+} from "../../../type";
 
 const yesNoSelectInitialState = {
-  questionType: "yesNoSelect",
+  questionType: ALL_QUESTION_TYPES.YES_NO_SELECT,
   title: "",
   description: "",
   option: [],
+  id: "",
 };
 
-export const useYesNoData = () => {
+export const useYesNoData = ({
+  valueFromParent,
+  sendDataToParent,
+}: QuestionSelectProps) => {
   const [disableSelection, setDisableSelection] = useState(false);
-  const [yesNoSelectData, updateYesNoSelectData] =
-    useImmer<YesNoSelectDataType>(yesNoSelectInitialState);
+  const [yesNoSelectData, updateYesNoSelectData] = useImmer<QuizQuestionType>(
+    valueFromParent || yesNoSelectInitialState
+  );
 
   const handleQuestionTitle = (value: string) => {
     updateYesNoSelectData((draft) => {
@@ -61,7 +64,23 @@ export const useYesNoData = () => {
     }
   }, [yesNoSelectData.option]);
 
-  console.log({ yesNoSelectData });
+  useEffect(() => {
+    if (valueFromParent) {
+      updateYesNoSelectData((draft) => {
+        draft.option = valueFromParent.option;
+        draft.description = valueFromParent.description;
+        draft.id = valueFromParent.id;
+        draft.title = valueFromParent.title;
+        draft.questionType = valueFromParent.questionType;
+      });
+    }
+  }, [valueFromParent?.id]);
+
+  useEffect(() => {
+    if (sendDataToParent) {
+      sendDataToParent(yesNoSelectData);
+    }
+  }, [yesNoSelectData]);
 
   return {
     yesNoSelectData,

@@ -1,69 +1,95 @@
+import { useCallback, useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 
 import {
   QuestionOptionType,
-  MultiSelectDataType,
   ALL_QUESTION_TYPES,
+  QuizQuestionType,
+  QuestionSelectProps,
 } from "../../../type";
-import { useCallback, useEffect } from "react";
 
-export type MultiSelectProps = {
-  multiSelectValueFromParent?: MultiSelectDataType;
-  sendMultiSelectDataToParent?: (data: MultiSelectDataType) => void;
-};
-
-const multiSelectInitialState: MultiSelectDataType = {
+const singleSelectInitialState: QuizQuestionType = {
   questionType: ALL_QUESTION_TYPES.MULTI_SELECT,
   title: "",
   description: "",
   option: [],
+  id: "",
 };
 
-export const useMultiSelectData = ({
-  multiSelectValueFromParent,
-  sendMultiSelectDataToParent,
-}: MultiSelectProps) => {
-  const [multiSelectData, updateMultiSelectData] =
-    useImmer<MultiSelectDataType>(
-      multiSelectValueFromParent || multiSelectInitialState
-    );
+export const useSingleSelectData = ({
+  valueFromParent,
+  sendDataToParent,
+}: QuestionSelectProps) => {
+  const [disableSelection, setDisableSelection] = useState(false);
+  const [singleSelectData, updateSingleSelectData] = useImmer<QuizQuestionType>(
+    valueFromParent || singleSelectInitialState
+  );
 
   const handleQuestionTitle = (value: string) => {
-    updateMultiSelectData((draft) => {
+    updateSingleSelectData((draft) => {
       draft.title = value;
     });
   };
 
   const handleQuestionDescription = useCallback(
     (value: string) => {
-      updateMultiSelectData((draft) => {
+      updateSingleSelectData((draft) => {
         draft.description = value;
       });
     },
-    [updateMultiSelectData]
+    [updateSingleSelectData]
   );
 
   const getOptionData = (value: QuestionOptionType) => {
-    console.log({ multiSelectData, value });
-    const filterIncomingData = multiSelectData.option.filter(
+    const filterIncomingData = singleSelectData.option.filter(
       (option) => option.order !== value.order
     );
 
-    updateMultiSelectData((draft) => {
+    updateSingleSelectData((draft) => {
       draft.option = [...filterIncomingData, value];
     });
   };
 
+  const handleDisableSelectionOption = ({ order }: { order: string }) => {
+    return disableSelection
+      ? !singleSelectData.option.find((op) => op.order === order)
+          ?.isCorrectChoice
+      : false;
+  };
+
   useEffect(() => {
-    if (sendMultiSelectDataToParent) {
-      sendMultiSelectDataToParent(multiSelectData);
+    if (sendDataToParent) {
+      sendDataToParent(singleSelectData);
     }
-  }, [multiSelectData]);
+  }, [singleSelectData]);
+
+  useEffect(() => {
+    const correctOptionSelected = singleSelectData.option.find(
+      (option) => option.isCorrectChoice
+    );
+    if (correctOptionSelected) {
+      setDisableSelection(true);
+    }
+    if (disableSelection && !correctOptionSelected) setDisableSelection(false);
+  }, [singleSelectData.option]);
+
+  useEffect(() => {
+    if (valueFromParent) {
+      updateSingleSelectData((draft) => {
+        draft.option = valueFromParent.option;
+        draft.description = valueFromParent.description;
+        draft.id = valueFromParent.id;
+        draft.title = valueFromParent.title;
+        draft.questionType = valueFromParent.questionType;
+      });
+    }
+  }, [valueFromParent?.id]);
 
   return {
-    multiSelectData,
+    singleSelectData,
     handleQuestionTitle,
     handleQuestionDescription,
     getOptionData,
+    handleDisableSelectionOption,
   };
 };

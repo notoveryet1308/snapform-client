@@ -12,8 +12,8 @@ function QuizContent({ content }: { content: QuizQuestionType }) {
     <StyledQuizContentWrapper>
       <div className="quiz-main-content">
         {ALL_QUESTION_TYPE_CONFIG[content.questionType]({
-          multiSelectValueFromParent: content,
-          sendMultiSelectDataToParent: (data) => {
+          valueFromParent: content,
+          sendDataToParent: (data) => {
             dispatch(updateQuestionData(data));
           },
         })}

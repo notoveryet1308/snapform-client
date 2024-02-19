@@ -1,19 +1,17 @@
-import React from "react";
-import { ALL_QUESTION_LIST } from "../../type";
+import { ALL_QUESTION_LIST, QuestionSelectProps } from "../../type";
 import MultiSelect from "./MultiSelect";
-import { MultiSelectProps } from "./MultiSelect/hooks";
 import SingleSelect from "./SingleSelect";
 import YesNoChoice from "./YesNoChoice";
 
 const ALL_QUESTION_TYPE_CONFIG = {
-  [ALL_QUESTION_LIST.MULTI_SELECT]: (props: MultiSelectProps) => {
+  [ALL_QUESTION_LIST.MULTI_SELECT]: (props: QuestionSelectProps) => {
     return <MultiSelect {...props} />;
   },
-  [ALL_QUESTION_LIST.SINGLE_SELECT]: (props: MultiSelectProps) => {
+  [ALL_QUESTION_LIST.SINGLE_SELECT]: (props: QuestionSelectProps) => {
     return <SingleSelect {...props} />;
   },
-  [ALL_QUESTION_LIST.YES_NO_SELECT]: () => {
-    return <YesNoChoice />;
+  [ALL_QUESTION_LIST.YES_NO_SELECT]: (props: QuestionSelectProps) => {
+    return <YesNoChoice {...props} />;
   },
 };
 

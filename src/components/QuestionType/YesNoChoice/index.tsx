@@ -1,17 +1,20 @@
+import { QuestionSelectProps } from "../../../type";
 import { ChoiceButtonEdit } from "../../UI/ChoiceButton";
 import { Input, TextArea } from "../../UI/Input";
 import { useYesNoData } from "./hooks";
 import { StyledYesNoWrapper } from "./style";
 
-function YesNoChoice() {
+function YesNoChoice({
+  valueFromParent,
+  sendDataToParent,
+}: QuestionSelectProps) {
   const {
     yesNoSelectData,
     handleQuestionDescription,
     handleQuestionTitle,
     getOptionData,
-    disableSelection,
     handleOneItemSelectionCheck,
-  } = useYesNoData();
+  } = useYesNoData({ valueFromParent, sendDataToParent });
   return (
     <StyledYesNoWrapper>
       <div className="question-label">Yes/No - select</div>

@@ -52,6 +52,7 @@ function ContentList() {
               onClick={() =>
                 handleQuestionTypeClick(ALL_QUESTION_LIST[question])
               }
+              showBorderRadius
             />
           ))}
         </StyledContentListWrapper>

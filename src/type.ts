@@ -86,15 +86,21 @@ export interface QuizQuestionType {
   option: QuestionOptionType[] | [];
 }
 
+
 export interface YesNoOptionType {
   label: string;
   isCorrectChoice: boolean;
 }
 
 export type MultiSelectDataType = {
-  questionType: string;
+  questionType: ALL_QUESTION_TYPES;
   title: string;
   description: string;
   option: QuestionOptionType[] | [];
   id: string;
+};
+
+export type QuestionSelectProps = {
+  valueFromParent?: QuizQuestionType;
+  sendDataToParent?: (data: QuizQuestionType) => void;
 };

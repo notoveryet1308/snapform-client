@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledQTypeContentLabelWrapper = styled.div<{
   $isActive: boolean;
+  $showBorderRadius: boolean;
 }>`
   width: 100%;
   display: flex;
@@ -13,6 +14,7 @@ export const StyledQTypeContentLabelWrapper = styled.div<{
   border-bottom: 1px solid ${({ theme }) => theme.color.border.tertiary};
   background-color: ${({ theme, $isActive }) =>
     $isActive ? theme.color.background.faded : "inherit"};
+  border-radius: ${({ $showBorderRadius }) => ($showBorderRadius ? "4px" : 0)};
 
   .qtype-order {
     color: ${({ theme }) => theme.color.text.primary};

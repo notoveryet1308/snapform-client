@@ -17,8 +17,6 @@ function QuizBuilder() {
     dispatch(createLiveQuiz());
   }, []);
 
-  console.log({ activeId: liveQuiz.activeQuestionId });
-
   return (
     <StyledQuizBuilderWrapper>
       {liveQuiz.id ? (

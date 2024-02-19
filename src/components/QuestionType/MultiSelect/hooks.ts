@@ -4,13 +4,9 @@ import {
   QuestionOptionType,
   MultiSelectDataType,
   ALL_QUESTION_TYPES,
+  QuestionSelectProps,
 } from "../../../type";
 import { useCallback, useEffect } from "react";
-
-export type MultiSelectProps = {
-  multiSelectValueFromParent?: MultiSelectDataType;
-  sendMultiSelectDataToParent?: (data: MultiSelectDataType) => void;
-};
 
 const multiSelectInitialState: MultiSelectDataType = {
   questionType: ALL_QUESTION_TYPES.MULTI_SELECT,
@@ -21,13 +17,11 @@ const multiSelectInitialState: MultiSelectDataType = {
 };
 
 export const useMultiSelectData = ({
-  multiSelectValueFromParent,
-  sendMultiSelectDataToParent,
-}: MultiSelectProps) => {
+  valueFromParent,
+  sendDataToParent,
+}: QuestionSelectProps) => {
   const [multiSelectData, updateMultiSelectData] =
-    useImmer<MultiSelectDataType>(
-      multiSelectValueFromParent || multiSelectInitialState
-    );
+    useImmer<MultiSelectDataType>(valueFromParent || multiSelectInitialState);
 
   const handleQuestionTitle = (value: string) => {
     updateMultiSelectData((draft) => {
@@ -45,7 +39,6 @@ export const useMultiSelectData = ({
   );
 
   const getOptionData = (value: QuestionOptionType) => {
-    console.log({ multiSelectData, value });
     const filterIncomingData = multiSelectData.option.filter(
       (option) => option.order !== value.order
     );
@@ -56,22 +49,22 @@ export const useMultiSelectData = ({
   };
 
   useEffect(() => {
-    if (sendMultiSelectDataToParent) {
-      sendMultiSelectDataToParent(multiSelectData);
+    if (sendDataToParent) {
+      sendDataToParent(multiSelectData);
     }
   }, [multiSelectData]);
 
   useEffect(() => {
-    if (multiSelectValueFromParent) {
+    if (valueFromParent) {
       updateMultiSelectData((draft) => {
-        draft.option = multiSelectValueFromParent.option;
-        draft.description = multiSelectValueFromParent.description;
-        draft.id = multiSelectValueFromParent.id;
-        draft.title = multiSelectValueFromParent.title;
-        draft.questionType = multiSelectValueFromParent.questionType;
+        draft.option = valueFromParent.option;
+        draft.description = valueFromParent.description;
+        draft.id = valueFromParent.id;
+        draft.title = valueFromParent.title;
+        draft.questionType = valueFromParent.questionType;
       });
     }
-  }, [multiSelectValueFromParent?.id]);
+  }, [valueFromParent?.id]);
 
   return {
     multiSelectData,
