@@ -86,6 +86,12 @@ export interface QuizQuestionType {
   option: QuestionOptionType[] | [];
 }
 
+export interface QuestionConfigureType {
+  [id: string]: {
+    timeLimit: number;
+    point: number;
+  };
+}
 
 export interface YesNoOptionType {
   label: string;

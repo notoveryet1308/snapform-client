@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const StyledLiveGameHeaderWrapper = styled.div`
   display: flex;
@@ -88,6 +88,11 @@ export const StyledMainHeaderWrapper = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    column-gap: 16px;
+
+    .main-navigation-dropdown-content {
+      width: unset;
+    }
   }
 
   .side-navigation {
@@ -98,7 +103,7 @@ export const StyledMainHeaderWrapper = styled.div`
   }
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(NavLink)`
   text-decoration: none;
   font-size: 14px;
   line-height: 20px;

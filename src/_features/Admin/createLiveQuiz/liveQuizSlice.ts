@@ -1,11 +1,16 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import { ALL_QUESTION_TYPES, QuizQuestionType } from "../../../type";
+import {
+  ALL_QUESTION_TYPES,
+  QuizQuestionType,
+  QuestionConfigureType,
+} from "../../../type";
 
 type LiveQuizType = {
   id: string;
   title: string;
   questions: QuizQuestionType[];
   activeQuestionId: string;
+  configuration: QuestionConfigureType;
 };
 
 type CreateQuizInitialStateType = {
@@ -18,6 +23,7 @@ const initialState: CreateQuizInitialStateType = {
     title: "",
     questions: [],
     activeQuestionId: "",
+    configuration: {},
   },
 };
 

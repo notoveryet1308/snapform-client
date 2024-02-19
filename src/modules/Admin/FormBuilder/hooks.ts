@@ -3,7 +3,11 @@ import { useLocation } from "react-router-dom";
 
 const getFormCategoryFromPathname = (
   pathname: string
-): { category: string; initialTitle: string; isQuiz: boolean } => {
+): {
+  category: string;
+  initialTitle: string;
+  isQuiz: boolean;
+} => {
   let category = "";
   let initialTitle = "";
   let isQuiz = false;
@@ -57,6 +61,6 @@ export const useFormBuilderHeader = () => {
     onSaveFormTitle,
     editFormTitle,
     builderDetail,
-    toggleTitleEdit
+    toggleTitleEdit,
   };
 };
