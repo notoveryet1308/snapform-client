@@ -88,8 +88,8 @@ export interface QuizQuestionType {
 
 export interface QuestionConfigureType {
   [id: string]: {
-    timeLimit: number;
-    point: number;
+    timeLimit: string;
+    point: string;
   };
 }
 

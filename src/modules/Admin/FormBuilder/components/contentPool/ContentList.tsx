@@ -10,10 +10,7 @@ import { StyledContentListWrapper } from "./style";
 import { ALL_QUESTION_LIST } from "../../../../../type";
 import QTypeContentLabel from "../../../../../components/QTypeContentLabel";
 import { useAppDispatch } from "../../../../../_store";
-import {
-  addQuestionType,
-  updateActiveQuestionId,
-} from "../../../../../_features/Admin/createLiveQuiz/liveQuizSlice";
+import { addQuestionType } from "../../../../../_features/Admin/createLiveQuiz/liveQuizSlice";
 
 function ContentList() {
   const [openModal, setOpenModal] = useState(false);
@@ -26,7 +23,6 @@ function ContentList() {
   const handleQuestionTypeClick = (qType: string) => {
     const newQuestionId = nanoid();
     dispatch(addQuestionType({ questionType: qType, id: newQuestionId }));
-    // dispatch(updateActiveQuestionId({ activeQuestionId: newQuestionId }));
     toggleModal();
   };
   return (

@@ -5,7 +5,11 @@ import React, { useEffect, useState } from "react";
 
 import { StyledDropdownWrapper } from "./style";
 
-import { DropdownPropsType } from "./types";
+import {
+  DropdownPropsType,
+  DropdownOptionType,
+  TriggerLabelType,
+} from "./types";
 import DropdownTrigger from "./DropdownTrigger";
 import DropdownOption from "./DropdownOption";
 
@@ -44,6 +48,7 @@ function Dropdown({
   value = "",
   classNames,
   label,
+  name,
   onSelect = () => {},
 }: DropdownPropsType) {
   const [selectedValue, setSelectedValue] = useState<string>(value);
@@ -55,7 +60,7 @@ function Dropdown({
 
   const handleSelectionValue = (value: string) => {
     setSelectedValue(value);
-    onSelect(value);
+    onSelect({ name, value });
     toggleOpen();
   };
 

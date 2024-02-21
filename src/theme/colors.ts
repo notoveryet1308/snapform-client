@@ -6,28 +6,17 @@ export const LIGHT = {
     primary: "#1E2974",
     secondary: "#495187",
     tertiary: "#7780B9",
-    // disabled: "#A3A3A3",
-    // success: "#35C759",
-    // danger: "#ff6969",
-    // warning: "#EDA43E",
-    // accent: "#1E2974",
   },
   background: {
     primary: "#1E2974",
     secondary: "#8C9CFB",
     tertiary: "#C7CEFF",
     faded: "#EBEDF9",
-    // disabled: "#E5E5E5",
-    // successStrong: "#35C759",
-    // successLight: "#D7F4DE",
   },
   border: {
     primary: "#A5B1FF",
     secondary: "#B9C2FF",
     tertiary: "#DCE0FF",
-    // successStrong: "#35C759",
-    // danger: "#FF6969",
-    // accent: "#1E2974",
   },
   disabled: {
     primary: "#B5B5B5",
@@ -43,6 +32,7 @@ export const LIGHT = {
   },
   error: {
     primary: "#D92929",
+    secondary: "#FFBDBD",
   },
 };
 
@@ -54,28 +44,17 @@ export const DARK = {
     primary: "#1E2974",
     secondary: "#495187",
     tertiary: "#7780B9",
-    // disabled: "#A3A3A3",
-    // success: "#35C759",
-    // danger: "#ff6969",
-    // warning: "#EDA43E",
-    // accent: "#1E2974",
   },
   background: {
     primary: "#1E2974",
     secondary: "#8C9CFB",
     tertiary: "#C7CEFF",
     faded: "#EBEDF9",
-    // disabled: "#E5E5E5",
-    // successStrong: "#35C759",
-    // successLight: "#D7F4DE",
   },
   border: {
     primary: "#A5B1FF",
     secondary: "#B9C2FF",
     tertiary: "#DCE0FF",
-    // successStrong: "#35C759",
-    // danger: "#FF6969",
-    // accent: "#1E2974",
   },
   disabled: {
     primary: "#B5B5B5",
@@ -91,5 +70,6 @@ export const DARK = {
   },
   error: {
     primary: "#D92929",
+    secondary: "#FFBDBD",
   },
 };

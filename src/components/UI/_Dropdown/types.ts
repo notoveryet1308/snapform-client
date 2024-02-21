@@ -17,7 +17,8 @@ export interface DropdownPropsType {
     triggerWrapper?: string;
     contentWrapper?: string;
   };
-  onSelect: (value: string) => void;
+  onSelect: ({ name, value }: { name: string; value: string }) => void;
+  name: string;
 }
 
 export type TriggerLabelType = {

@@ -3,7 +3,10 @@ import { QuizQuestionType } from "../../../../../type";
 import QTypeContentLabel from "../../../../../components/QTypeContentLabel";
 import ContentList from "./ContentList";
 import { useAppDispatch } from "../../../../../_store";
-import { updateActiveQuestionId } from "../../../../../_features/Admin/createLiveQuiz/liveQuizSlice";
+import {
+  updateActiveQuestionId,
+  removeQuizQuestion,
+} from "../../../../../_features/Admin/createLiveQuiz/liveQuizSlice";
 
 function ContentPool({
   questions,
@@ -32,6 +35,10 @@ function ContentPool({
             onClick={() =>
               dispatch(updateActiveQuestionId({ activeQuestionId: q.id }))
             }
+            isRemovable={questions.length > 1}
+            onRemove={({ id }: { id?: string }) => {
+              dispatch(removeQuizQuestion({ qId: id }));
+            }}
           />
         ))}
       </div>

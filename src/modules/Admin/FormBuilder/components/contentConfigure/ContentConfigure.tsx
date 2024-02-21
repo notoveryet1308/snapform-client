@@ -5,44 +5,63 @@ import {
   StyledContentConfigureWrapper,
   StyledContentConfigureDropdownLabel,
 } from "./style";
+import { POINTS_OPTIONS, TIME_LIMIT_OPTIONS } from "./constants";
+import { useAppDispatch } from "../../../../../_store";
+import {
+  updatePointConfiguration,
+  updateTimeLimitConfiguration,
+} from "../../../../../_features/Admin/createLiveQuiz/liveQuizSlice";
 
-function ContentConfigure() {
+function ContentConfigure({
+  id,
+  timeLimit,
+  point,
+}: {
+  id: string;
+  timeLimit: string;
+  point: string;
+}) {
+  const dispatch = useAppDispatch();
+
+  const handleTimeLimit = ({ value }: { name: string; value: string }) => {
+    dispatch(updateTimeLimitConfiguration({ id, value }));
+  };
+  const handlePoint = ({ value }: { name: string; value: string }) => {
+    dispatch(updatePointConfiguration({ id, value }));
+  };
+
   return (
     <StyledContentConfigureWrapper>
       <div className="configure-label">Configure</div>
       <div className="configure-content-wrapper">
         <Dropdown
-          options={[
-            { key: "30", content: "30 sec" },
-            { key: "40", content: "40 sec" },
-            { key: "50", content: "60 sec" },
-          ]}
+          options={TIME_LIMIT_OPTIONS}
+          name="timeLimit"
           placeholder="Select time"
           triggerType="border"
-          onSelect={() => {}}
+          onSelect={handleTimeLimit}
           label={
             <StyledContentConfigureDropdownLabel>
               <Timer className="dropdown-label-icon" weight="bold" />
               <span className="dropdown-label">Time limit</span>
             </StyledContentConfigureDropdownLabel>
           }
+          value={timeLimit}
         />
 
         <Dropdown
-          options={[
-            { key: "1000", content: "Standard" },
-            { key: "2000", content: "Double" },
-            { key: "4000", content: "4 times" },
-          ]}
+          options={POINTS_OPTIONS}
           placeholder="Select point"
+          name="point"
           triggerType="border"
-          onSelect={() => {}}
+          onSelect={handlePoint}
           label={
             <StyledContentConfigureDropdownLabel>
               <Exam className="dropdown-label-icon" weight="bold" />
               <span className="dropdown-label">Points</span>
             </StyledContentConfigureDropdownLabel>
           }
+          value={point}
         />
       </div>
     </StyledContentConfigureWrapper>

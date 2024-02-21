@@ -4,6 +4,7 @@ export const StyledQTypeContentLabelWrapper = styled.div<{
   $isActive: boolean;
   $showBorderRadius: boolean;
 }>`
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -24,7 +25,7 @@ export const StyledQTypeContentLabelWrapper = styled.div<{
   }
 
   .qtype-icon-wrapper {
-    padding: 8px;
+    padding: 4px 8px;
     background-color: ${({ theme }) => theme.color.background.primary};
     color: ${({ theme }) => theme.color.white};
     display: flex;
@@ -42,7 +43,27 @@ export const StyledQTypeContentLabelWrapper = styled.div<{
     overflow: hidden;
   }
 
+  .remove-question-wrapper {
+    position: absolute;
+    right: 12px;
+    background-color: ${({ theme }) => theme.color.error.secondary};
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    border-radius: 50%;
+    display: none;
+
+    .remove-question-icon {
+      color: ${({ theme }) => theme.color.text.primary};
+      font-size: 12px;
+    }
+  }
+
   &:hover {
     background-color: ${({ theme }) => theme.color.background.faded};
+
+    .remove-question-wrapper {
+      display: flex;
+    }
   }
 `;

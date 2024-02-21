@@ -32,7 +32,10 @@ function QuizBuilder() {
               )[0]
             }
           />
-          <ContentConfigure />
+          <ContentConfigure
+            id={liveQuiz.activeQuestionId}
+            {...liveQuiz.configuration[liveQuiz.activeQuestionId]}
+          />
         </>
       ) : (
         <Loader />

@@ -111,8 +111,4 @@ export const StyledLink = styled(NavLink)`
   cursor: pointer;
   white-space: nowrap;
   transition: color 300ms ease-in-out;
-
-  &:hover {
-    color: ${({ theme }) => theme.color.text.tertiary};
-  }
 `;
