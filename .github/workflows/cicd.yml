@@ -1,0 +1,36 @@
+name: snapform-client
+on:
+  push:
+    branches: 
+      - main
+
+
+jobs: 
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME}} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build docker image
+        run: docker build -t rahulraz/snapform-client
+ .
+      - name: Publish image to docker hub
+        run: docker push rahulraz/snapform-client:latest
+
+  deploy:
+     needs: build
+     runs-on: deploy-snapform-client
+     steps:
+       - name: Pull image from docker hub
+         run: docker pull rahulraz/snapform-client:latest
+       - name: Docker old container 
+         run: docker rm -f snapformContainer 
+       - name: Run docker container
+         run: docker run -d -p 8080:80 --name snapformContainer rahulraz/snapform-client
+
+
+
+
+ 
