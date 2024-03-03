@@ -12,7 +12,7 @@ const yesNoSelectInitialState = {
   questionType: ALL_QUESTION_TYPES.YES_NO_SELECT,
   title: "",
   description: "",
-  option: [],
+  options: [],
   id: "",
 };
 
@@ -38,36 +38,36 @@ export const useYesNoData = ({
   };
 
   const getOptionData = (value: QuestionOptionType) => {
-    const filterIncomingData = yesNoSelectData.option.filter(
+    const filterIncomingData = yesNoSelectData.options.filter(
       (option) => option.order !== value.order
     );
 
     updateYesNoSelectData((draft) => {
-      draft.option = [...filterIncomingData, value];
+      draft.options = [...filterIncomingData, value];
     });
   };
 
   const handleOneItemSelectionCheck = ({ order }: { order: string }) => {
     return disableSelection
-      ? !yesNoSelectData.option.find((op) => op.order === order)
+      ? !yesNoSelectData.options.find((op) => op.order === order)
           ?.isCorrectChoice
       : false;
   };
 
   useEffect(() => {
-    if (yesNoSelectData.option.length > 0) {
-      if (yesNoSelectData.option.some((option) => option.isCorrectChoice)) {
+    if (yesNoSelectData.options.length > 0) {
+      if (yesNoSelectData.options.some((option) => option.isCorrectChoice)) {
         setDisableSelection(true);
       } else if (disableSelection) {
         setDisableSelection(false);
       }
     }
-  }, [yesNoSelectData.option]);
+  }, [yesNoSelectData.options]);
 
   useEffect(() => {
     if (valueFromParent) {
       updateYesNoSelectData((draft) => {
-        draft.option = valueFromParent.option;
+        draft.options = valueFromParent.options;
         draft.description = valueFromParent.description;
         draft.id = valueFromParent.id;
         draft.title = valueFromParent.title;

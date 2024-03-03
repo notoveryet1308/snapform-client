@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import React, { useEffect, useState } from "react";
 
 import { StyledDropdownWrapper } from "./style";
@@ -28,7 +25,7 @@ const generateDropdownLabel = ({
     label: placeholder,
     selectedValue: "",
   };
-  if (selectedValue) {
+  if (selectedValue && options.some((option) => option.key === selectedValue)) {
     const selectedContent = options.filter((op) => op.key === selectedValue)[0]
       .content;
     currLabel.label = !showLabelAndValue ? "" : placeholder;

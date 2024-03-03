@@ -1,11 +1,9 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import { Outlet } from "react-router-dom";
 import { StyledFormBuilderWrapper } from "./style";
 import { Input } from "../../../components/UI/Input";
 import { PrimaryButton } from "../../../components/UI/Button";
 import { useFormBuilderHeader } from "./hooks";
+import useCreateLiveQuizMutation from "./api/hook/useCreateLiveQuizMutation";
 
 function FormBuilder() {
   const {
@@ -16,6 +14,7 @@ function FormBuilder() {
     toggleTitleEdit,
   } = useFormBuilderHeader();
 
+  const { handleCreateMutation } = useCreateLiveQuizMutation();
   return (
     <StyledFormBuilderWrapper $isQuiz={builderDetail.isQuiz}>
       <div className="form-category-and-title">
@@ -46,7 +45,11 @@ function FormBuilder() {
             )}
           </div>
         </div>
-        <PrimaryButton name="Publish" onClick={() => {}} size="small" />
+        <PrimaryButton
+          name="Publish"
+          onClick={handleCreateMutation}
+          size="small"
+        />
       </div>
       <div className="builder-content">
         <Outlet />

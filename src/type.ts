@@ -83,7 +83,7 @@ export interface QuizQuestionType {
   questionType: ALL_QUESTION_TYPES;
   title: string;
   description: string;
-  option: QuestionOptionType[] | [];
+  options: QuestionOptionType[] | [];
 }
 
 export interface QuestionConfigureType {
@@ -102,11 +102,31 @@ export type MultiSelectDataType = {
   questionType: ALL_QUESTION_TYPES;
   title: string;
   description: string;
-  option: QuestionOptionType[] | [];
+  options: QuestionOptionType[] | [];
   id: string;
 };
 
 export type QuestionSelectProps = {
   valueFromParent?: QuizQuestionType;
   sendDataToParent?: (data: QuizQuestionType) => void;
+};
+
+export interface LiveQuizDataType {
+  id: string;
+  title: string;
+  questions: QuizQuestionType[];
+  activeQuestionId: string;
+  configuration: QuestionConfigureType;
+}
+
+export interface LiveQuizResponseDataType
+  extends Omit<LiveQuizDataType, "activeQuestionId"> {
+  createdAt?: Date;
+}
+
+export type ChoiceButtonDataType = {
+  order: string;
+  placeholder: string;
+  value?: string;
+  isCorrectChoice: boolean;
 };

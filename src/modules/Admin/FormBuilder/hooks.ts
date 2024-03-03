@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../_store";
+import { updateLiveQuizTitle } from "../../../_features/Admin/createLiveQuiz/liveQuizSlice";
 
 const getFormCategoryFromPathname = (
   pathname: string
@@ -28,6 +30,9 @@ const getFormCategoryFromPathname = (
 };
 
 export const useFormBuilderHeader = () => {
+  const { liveQuiz } = useAppSelector((state) => state.liveQuiz);
+  const dispatch = useAppDispatch();
+
   const [editFormTitle, setEditFormTitle] = useState(false);
   const [builderDetail, setBuilderDetail] = useState({
     title: "",
@@ -38,6 +43,7 @@ export const useFormBuilderHeader = () => {
 
   const handleFormTitleChange = (value: string) => {
     setBuilderDetail({ ...builderDetail, title: value });
+    dispatch(updateLiveQuizTitle({ id: liveQuiz.id, title: value }));
   };
   const toggleTitleEdit = () => {
     setEditFormTitle(!editFormTitle);

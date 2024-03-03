@@ -1,20 +1,8 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import {
-  ALL_QUESTION_TYPES,
-  QuizQuestionType,
-  QuestionConfigureType,
-} from "../../../type";
-
-type LiveQuizType = {
-  id: string;
-  title: string;
-  questions: QuizQuestionType[];
-  activeQuestionId: string;
-  configuration: QuestionConfigureType;
-};
+import { ALL_QUESTION_TYPES, LiveQuizDataType } from "../../../type";
 
 type CreateQuizInitialStateType = {
-  liveQuiz: LiveQuizType;
+  liveQuiz: LiveQuizDataType;
 };
 
 const DEFAULT_TIME_LIMIT = "20";
@@ -27,6 +15,7 @@ const initialState: CreateQuizInitialStateType = {
     questions: [],
     activeQuestionId: "",
     configuration: {},
+    
   },
 };
 
@@ -37,7 +26,7 @@ const LiveQuizSlice = createSlice({
     createLiveQuiz: (state) => {
       const quizId = nanoid();
       const questionId = nanoid();
-      const liveQuiz: LiveQuizType = {
+      const liveQuiz: LiveQuizDataType = {
         id: quizId,
         title: "My live quiz",
         questions: [
@@ -46,7 +35,7 @@ const LiveQuizSlice = createSlice({
             questionType: ALL_QUESTION_TYPES.MULTI_SELECT,
             title: "",
             description: "",
-            option: [],
+            options: [],
           },
         ],
         activeQuestionId: questionId,
@@ -76,7 +65,7 @@ const LiveQuizSlice = createSlice({
         questionType,
         title: "",
         description: "",
-        option: [],
+        options: [],
       });
       state.liveQuiz.activeQuestionId = id;
       state.liveQuiz.configuration = {
@@ -121,13 +110,20 @@ const LiveQuizSlice = createSlice({
 
       const { id } = filteredList[0];
 
-      console.log({ afterR: id, qId, filteredList });
+      // console.log({ afterR: id, qId, filteredList });
 
       state.liveQuiz.questions = state.liveQuiz.questions.filter((d) => {
         if (d.id !== qId) return d;
       });
       state.liveQuiz.activeQuestionId = id;
       delete state.liveQuiz.configuration[qId];
+    },
+    updateLiveQuizTitle: (state, action) => {
+      const { id, title } = action.payload;
+
+      if (id === state.liveQuiz.id) {
+        state.liveQuiz.title = title;
+      }
     },
   },
 });
@@ -140,6 +136,7 @@ export const {
   updatePointConfiguration,
   updateTimeLimitConfiguration,
   removeQuizQuestion,
+  updateLiveQuizTitle,
 } = LiveQuizSlice.actions;
 
 export default LiveQuizSlice.reducer;

@@ -29,7 +29,7 @@ export const StyledSingleSelectWrapper = styled.div`
   .question-option {
     width: 100%;
     display: flex;
-    gap: 24px;
+    gap: 16px;
     flex-wrap: wrap;
     flex: 1;
     align-content: flex-end;
@@ -39,9 +39,14 @@ export const StyledSingleSelectWrapper = styled.div`
 export const StyledChoiceButtonComboWrapper = styled.div`
   display: flex;
   width: 100%;
-  column-gap: 16px;
+  gap: 16px;
   align-items: center;
+
   .choice-btn-wrapper {
     width: 48%;
+  }
+
+  @media screen and (max-width: 1140px) {
+    flex-wrap: wrap;
   }
 `;

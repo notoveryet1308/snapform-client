@@ -1,4 +1,4 @@
-import ChoiceButtonCombo from "./ChoiceButtonCombo";
+import ChoiceButtonCombo from "../ChoiceButtonCombo";
 import { Input, TextArea } from "../../UI/Input";
 import { StyledMultiSelectWrapper } from "./style";
 import { useMultiSelectData } from "./hooks";
@@ -10,7 +10,7 @@ const COMBO_OPTION_ONE = [
 ];
 
 const COMBO_OPTION_TWO = [
-  { order: "c", placeholder: "Add answer (optional)" },
+  { order: "C", placeholder: "Add answer (optional)" },
   { order: "D", placeholder: "Add answer (optional)" },
 ];
 
@@ -52,10 +52,12 @@ const MultiSelect = ({
         <ChoiceButtonCombo
           choiceData={COMBO_OPTION_ONE}
           getOptionDetail={getOptionData}
+          options={multiSelectData.options}
         />
         <ChoiceButtonCombo
           choiceData={COMBO_OPTION_TWO}
           getOptionDetail={getOptionData}
+          options={multiSelectData.options}
         />
       </div>
     </StyledMultiSelectWrapper>

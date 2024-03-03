@@ -51,6 +51,7 @@ function ChoiceButtonEdit({
   className,
   hideChoiceOrder = false,
   disableCheckbox,
+  selectedValues,
 }: ChoiceButtonEditProp) {
   const {
     handleChangeInput,
@@ -61,6 +62,7 @@ function ChoiceButtonEdit({
   } = useChoiceBtnInput({
     getOptionDetail,
     choiceOrder,
+    selectedValues,
   });
   return (
     <StyledChoiceButtonEditWrapper className={className}>

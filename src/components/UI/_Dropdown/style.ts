@@ -13,7 +13,19 @@ export const StyledDropdownWrapper = styled.div`
   }
 
   .dropdown-trigger-wrapper {
+    position: relative;
     cursor: pointer;
+
+    &::after {
+      position: absolute;
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      top: 0;
+      left: 0;
+    }
   }
 
   .dropdown-content-wrapper {
@@ -79,6 +91,7 @@ export const StyledDropdownOptionWrapper = styled.div`
   cursor: pointer;
   background-color: inherit;
   color: ${({ theme }) => theme.color.text.primary};
+  display: flex;
 
   &:hover {
     background-color: ${({ theme }) => theme.color.background.faded};

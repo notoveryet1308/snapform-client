@@ -9,6 +9,7 @@ export type ChoiceButtonEditProp = {
   className?: string;
   hideChoiceOrder?: boolean;
   disableCheckbox?: boolean;
+  selectedValues?: QuestionOptionType;
 };
 
 export interface ChoiceButtonBaseProps {

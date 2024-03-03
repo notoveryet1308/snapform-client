@@ -12,7 +12,7 @@ const singleSelectInitialState: QuizQuestionType = {
   questionType: ALL_QUESTION_TYPES.MULTI_SELECT,
   title: "",
   description: "",
-  option: [],
+  options: [],
   id: "",
 };
 
@@ -41,18 +41,18 @@ export const useSingleSelectData = ({
   );
 
   const getOptionData = (value: QuestionOptionType) => {
-    const filterIncomingData = singleSelectData.option.filter(
+    const filterIncomingData = singleSelectData.options.filter(
       (option) => option.order !== value.order
     );
 
     updateSingleSelectData((draft) => {
-      draft.option = [...filterIncomingData, value];
+      draft.options = [...filterIncomingData, value];
     });
   };
 
   const handleDisableSelectionOption = ({ order }: { order: string }) => {
     return disableSelection
-      ? !singleSelectData.option.find((op) => op.order === order)
+      ? !singleSelectData.options.find((op) => op.order === order)
           ?.isCorrectChoice
       : false;
   };
@@ -64,19 +64,19 @@ export const useSingleSelectData = ({
   }, [singleSelectData]);
 
   useEffect(() => {
-    const correctOptionSelected = singleSelectData.option.find(
+    const correctOptionSelected = singleSelectData.options.find(
       (option) => option.isCorrectChoice
     );
     if (correctOptionSelected) {
       setDisableSelection(true);
     }
     if (disableSelection && !correctOptionSelected) setDisableSelection(false);
-  }, [singleSelectData.option]);
+  }, [singleSelectData.options]);
 
   useEffect(() => {
     if (valueFromParent) {
       updateSingleSelectData((draft) => {
-        draft.option = valueFromParent.option;
+        draft.options = valueFromParent.options;
         draft.description = valueFromParent.description;
         draft.id = valueFromParent.id;
         draft.title = valueFromParent.title;

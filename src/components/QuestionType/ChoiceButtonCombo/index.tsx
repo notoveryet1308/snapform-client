@@ -41,9 +41,9 @@ function ChoiceButtonCombo({
 }: ChoiceButtonComboProp) {
   return (
     <StyledChoiceButtonComboWrapper>
-      {choiceData.map((choice) => (
+      {choiceData.map((choice, index) => (
         <ChoiceButtonEdit
-          key={choice.order}
+          key={index}
           choiceOrder={choice.order}
           placeholder={choice.placeholder}
           getOptionDetail={getOptionDetail}

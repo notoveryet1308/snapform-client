@@ -111,4 +111,9 @@ export const StyledLink = styled(NavLink)`
   cursor: pointer;
   white-space: nowrap;
   transition: color 300ms ease-in-out;
+  width: 100%;
+
+  &.active {
+    font-weight: 600;
+  }
 `;

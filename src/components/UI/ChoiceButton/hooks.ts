@@ -4,12 +4,16 @@ import { QuestionOptionType } from "../../../type";
 export const useChoiceBtnInput = ({
   getOptionDetail,
   choiceOrder = "",
+  selectedValues,
 }: {
   choiceOrder?: string;
   getOptionDetail: ({ label, isCorrectChoice }: QuestionOptionType) => void;
+  selectedValues?: QuestionOptionType;
 }) => {
-  const [inputValue, setInputValue] = useState("");
-  const [isCorrectOption, setCorrectOption] = useState(false);
+  const [inputValue, setInputValue] = useState(selectedValues?.label || "");
+  const [isCorrectOption, setCorrectOption] = useState(
+    !!selectedValues?.isCorrectChoice
+  );
 
   const handleChangeInput = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +32,7 @@ export const useChoiceBtnInput = ({
         isCorrectChoice: state,
       });
     },
-    [inputValue]
+    [choiceOrder, getOptionDetail, inputValue]
   );
 
   const onInputBlurHandler = () => {
@@ -38,13 +42,12 @@ export const useChoiceBtnInput = ({
       isCorrectChoice: isCorrectOption,
     });
   };
+
   useEffect(() => {
     if (!inputValue && isCorrectOption) {
       setCorrectOption(false);
     }
-  }, [isCorrectOption, inputValue, getOptionDetail, choiceOrder]);
-
-  useEffect(() => {}, [isCorrectOption]);
+  }, [inputValue]);
 
   return {
     inputValue,

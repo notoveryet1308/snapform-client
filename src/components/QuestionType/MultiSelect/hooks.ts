@@ -1,4 +1,5 @@
 import { useImmer } from "use-immer";
+import { useCallback, useEffect } from "react";
 
 import {
   QuestionOptionType,
@@ -6,13 +7,12 @@ import {
   ALL_QUESTION_TYPES,
   QuestionSelectProps,
 } from "../../../type";
-import { useCallback, useEffect } from "react";
 
 const multiSelectInitialState: MultiSelectDataType = {
   questionType: ALL_QUESTION_TYPES.MULTI_SELECT,
   title: "",
   description: "",
-  option: [],
+  options: [],
   id: "",
 };
 
@@ -39,12 +39,12 @@ export const useMultiSelectData = ({
   );
 
   const getOptionData = (value: QuestionOptionType) => {
-    const filterIncomingData = multiSelectData.option.filter(
-      (option) => option.order !== value.order
-    );
+    const filterUnchangedOptions = multiSelectData.options.filter((option) => {
+      if (option.order !== value.order) return option;
+    });
 
     updateMultiSelectData((draft) => {
-      draft.option = [...filterIncomingData, value];
+      draft.options = [...filterUnchangedOptions, value];
     });
   };
 
@@ -57,7 +57,7 @@ export const useMultiSelectData = ({
   useEffect(() => {
     if (valueFromParent) {
       updateMultiSelectData((draft) => {
-        draft.option = valueFromParent.option;
+        draft.options = valueFromParent.options;
         draft.description = valueFromParent.description;
         draft.id = valueFromParent.id;
         draft.title = valueFromParent.title;
@@ -65,6 +65,10 @@ export const useMultiSelectData = ({
       });
     }
   }, [valueFromParent?.id]);
+
+  useEffect(() => {
+    console.log({ effectOp: multiSelectData.options });
+  }, [multiSelectData.options]);
 
   return {
     multiSelectData,
