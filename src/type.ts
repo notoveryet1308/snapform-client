@@ -122,6 +122,17 @@ export interface LiveQuizDataType {
 export interface LiveQuizResponseDataType
   extends Omit<LiveQuizDataType, "activeQuestionId"> {
   createdAt?: Date;
+  isLiveQuiz?: boolean;
+}
+
+export interface QueryLiveQuizResponseDataType {
+  data: LiveQuizResponseDataType[];
+  status: string;
+}
+
+export interface MutationLiveQuizResponseDataType {
+  data: LiveQuizResponseDataType;
+  status: string;
 }
 
 export type ChoiceButtonDataType = {

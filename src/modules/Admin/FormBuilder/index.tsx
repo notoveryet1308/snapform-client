@@ -3,7 +3,7 @@ import { StyledFormBuilderWrapper } from "./style";
 import { Input } from "../../../components/UI/Input";
 import { PrimaryButton } from "../../../components/UI/Button";
 import { useFormBuilderHeader } from "./hooks";
-import useCreateLiveQuizMutation from "./api/hook/useCreateLiveQuizMutation";
+import useCreateLiveQuizMutation from "../../../api/hook/useCreateLiveQuizMutation";
 
 function FormBuilder() {
   const {

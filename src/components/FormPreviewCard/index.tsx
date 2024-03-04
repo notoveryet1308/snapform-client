@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { ShareNetwork, Play } from "@phosphor-icons/react";
 
 import { FORM_TYPE } from "../../appConfig";
@@ -6,6 +7,7 @@ import { StyledFormPreviewCardWrapper } from "./style";
 import FORM_PREVIEW_CONFIG from "./config";
 
 interface FormPreviewProps {
+  id: string;
   title: string;
   createdAt: string;
   questionCount: number;
@@ -14,12 +16,15 @@ interface FormPreviewProps {
 }
 
 function FormPreviewCard({
+  id,
   title,
   createdAt,
   previewType,
   className,
   questionCount,
 }: FormPreviewProps) {
+  const playerShareURL = `localhost:8080/player/live/${id}`;
+  const adminPlayUrl = `/admin/live/${id}`;
   return (
     <StyledFormPreviewCardWrapper className={className}>
       <div className="card-left">
@@ -37,8 +42,11 @@ function FormPreviewCard({
           <ShareNetwork
             weight="bold"
             className="card-action-action share-icon"
+            onClick={() => navigator.clipboard.writeText(playerShareURL)}
           />
-          <Play weight="bold" className="card-action-action play-icon" />
+          <NavLink to={adminPlayUrl} target="_blank">
+            <Play weight="bold" className="card-action-action play-icon" />
+          </NavLink>
         </div>
       </div>
     </StyledFormPreviewCardWrapper>
