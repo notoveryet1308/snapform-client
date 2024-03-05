@@ -6,7 +6,7 @@ import {
   ALL_QUESTION_TYPES,
   QuizQuestionType,
   QuestionSelectProps,
-} from "../../../type";
+} from "../../../../type";
 
 const singleSelectInitialState: QuizQuestionType = {
   questionType: ALL_QUESTION_TYPES.MULTI_SELECT,

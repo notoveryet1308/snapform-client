@@ -1,6 +1,6 @@
-import { QuestionSelectProps } from "../../../type";
-import { ChoiceButtonEdit } from "../../UI/ChoiceButton";
-import { Input, TextArea } from "../../UI/Input";
+import { QuestionSelectProps } from "../../../../type";
+import { ChoiceButtonEdit } from "../../../UI/ChoiceButton";
+import { Input, TextArea } from "../../../UI/Input";
 import { useYesNoData } from "./hooks";
 import { StyledYesNoWrapper } from "./style";
 

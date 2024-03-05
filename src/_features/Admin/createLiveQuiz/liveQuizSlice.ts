@@ -15,7 +15,6 @@ const initialState: CreateQuizInitialStateType = {
     questions: [],
     activeQuestionId: "",
     configuration: {},
-    
   },
 };
 
@@ -109,8 +108,6 @@ const LiveQuizSlice = createSlice({
       const filteredList = state.liveQuiz.questions.filter((d) => d.id !== qId);
 
       const { id } = filteredList[0];
-
-      // console.log({ afterR: id, qId, filteredList });
 
       state.liveQuiz.questions = state.liveQuiz.questions.filter((d) => {
         if (d.id !== qId) return d;

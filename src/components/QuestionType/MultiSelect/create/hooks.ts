@@ -6,7 +6,7 @@ import {
   MultiSelectDataType,
   ALL_QUESTION_TYPES,
   QuestionSelectProps,
-} from "../../../type";
+} from "../../../../type";
 
 const multiSelectInitialState: MultiSelectDataType = {
   questionType: ALL_QUESTION_TYPES.MULTI_SELECT,
@@ -65,10 +65,6 @@ export const useMultiSelectData = ({
       });
     }
   }, [valueFromParent?.id]);
-
-  useEffect(() => {
-    console.log({ effectOp: multiSelectData.options });
-  }, [multiSelectData.options]);
 
   return {
     multiSelectData,

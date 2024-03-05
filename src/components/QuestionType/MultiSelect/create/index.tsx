@@ -1,8 +1,8 @@
 import ChoiceButtonCombo from "./ChoiceButtonCombo";
-import { Input, TextArea } from "../../UI/Input";
-import { StyledSingleSelectWrapper } from "./style";
-import { useSingleSelectData } from "./hooks";
-import { QuestionSelectProps } from "../../../type";
+import { Input, TextArea } from "../../../UI/Input";
+import { StyledMultiSelectWrapper } from "./style";
+import { useMultiSelectData } from "./hooks";
+import { QuestionSelectProps } from "../../../../type";
 
 const COMBO_OPTION_ONE = [
   { order: "A", placeholder: "Add answer" },
@@ -10,59 +10,58 @@ const COMBO_OPTION_ONE = [
 ];
 
 const COMBO_OPTION_TWO = [
-  { order: "c", placeholder: "Add answer (optional)" },
+  { order: "C", placeholder: "Add answer (optional)" },
   { order: "D", placeholder: "Add answer (optional)" },
 ];
 
-const SingleSelect = ({
+const MultiSelect = ({
   valueFromParent,
   sendDataToParent,
 }: QuestionSelectProps) => {
   const {
-    singleSelectData,
+    multiSelectData,
     handleQuestionDescription,
     handleQuestionTitle,
     getOptionData,
-    handleDisableSelectionOption,
-  } = useSingleSelectData({
+  } = useMultiSelectData({
     valueFromParent,
     sendDataToParent,
   });
 
   return (
-    <StyledSingleSelectWrapper>
-      <div className="question-label">Single - select</div>
+    <StyledMultiSelectWrapper>
+      <div className="question-label">Multiple - select</div>
       <div className="question-content">
         <Input
           placeholder="Enter title"
           type="text"
-          name="single-select-title"
+          name="multi-select-title"
           maxCharLimit={100}
           onInputChange={handleQuestionTitle}
-          value={singleSelectData.title}
+          value={multiSelectData.title}
         />
         <TextArea
           placeholder="Enter description (optional)"
           maxCharLimit={400}
           onInputChange={handleQuestionDescription}
-          name="single-select-description"
-          value={singleSelectData.description}
+          name="multi-select-description"
+          value={multiSelectData.description}
         />
       </div>
       <div className="question-option">
         <ChoiceButtonCombo
           choiceData={COMBO_OPTION_ONE}
           getOptionDetail={getOptionData}
-          handleDisableSelectionOption={handleDisableSelectionOption}
+          options={multiSelectData.options}
         />
         <ChoiceButtonCombo
           choiceData={COMBO_OPTION_TWO}
           getOptionDetail={getOptionData}
-          handleDisableSelectionOption={handleDisableSelectionOption}
+          options={multiSelectData.options}
         />
       </div>
-    </StyledSingleSelectWrapper>
+    </StyledMultiSelectWrapper>
   );
 };
 
-export default SingleSelect;
+export default MultiSelect;

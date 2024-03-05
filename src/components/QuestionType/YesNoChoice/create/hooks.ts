@@ -6,7 +6,7 @@ import {
   QuestionOptionType,
   QuestionSelectProps,
   QuizQuestionType,
-} from "../../../type";
+} from "../../../../type";
 
 const yesNoSelectInitialState = {
   questionType: ALL_QUESTION_TYPES.YES_NO_SELECT,

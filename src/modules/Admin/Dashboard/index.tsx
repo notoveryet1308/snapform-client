@@ -10,8 +10,6 @@ import { StyledDashboardWrapper } from "./style";
 function Dashboard() {
   const { isLoading, data, isError } = useGetAllLiveQuiz();
 
-  console.log({ data });
-
   return (
     <StyledDashboardWrapper>
       <div className="dashboard-content">

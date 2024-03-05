@@ -125,8 +125,13 @@ export interface LiveQuizResponseDataType
   isLiveQuiz?: boolean;
 }
 
-export interface QueryLiveQuizResponseDataType {
+export interface QueryAllLiveQuizResponseDataType {
   data: LiveQuizResponseDataType[];
+  status: string;
+}
+
+export interface QuerySingleLiveQuizResponseDataType {
+  data: LiveQuizResponseDataType;
   status: string;
 }
 

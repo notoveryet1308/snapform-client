@@ -3,7 +3,8 @@ import axios from "axios";
 import { BASE_URL_SERVER } from "../../appConfig";
 import {
   MutationLiveQuizResponseDataType,
-  QueryLiveQuizResponseDataType,
+  QueryAllLiveQuizResponseDataType,
+  QuerySingleLiveQuizResponseDataType,
   LiveQuizResponseDataType,
 } from "../../type";
 
@@ -17,11 +18,19 @@ const createLiveQuizApi = async (data: LiveQuizResponseDataType) => {
 };
 
 const getAllLiveQuiz = async () => {
-  const response = await axios.get<QueryLiveQuizResponseDataType>(
+  const response = await axios.get<QueryAllLiveQuizResponseDataType>(
     `${BASE_URL_SERVER}/live-quiz`
   );
 
   return response.data.data;
 };
 
-export { createLiveQuizApi, getAllLiveQuiz };
+const getLiveQuizById = async ({ quizId }: { quizId: string }) => {
+  const response = await axios.get<QuerySingleLiveQuizResponseDataType>(
+    `${BASE_URL_SERVER}/live-quiz/id/${quizId}`
+  );
+
+  return response.data.data;
+};
+
+export { createLiveQuizApi, getAllLiveQuiz, getLiveQuizById };

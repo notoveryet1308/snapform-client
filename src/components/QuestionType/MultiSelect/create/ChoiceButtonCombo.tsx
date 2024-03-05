@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { QuestionOptionType } from "../../../type";
-import { ChoiceButtonEdit } from "../../UI/ChoiceButton";
+import { QuestionOptionType } from "../../../../type";
+import { ChoiceButtonEdit } from "../../../UI/ChoiceButton";
 
 import { StyledChoiceButtonComboWrapper } from "./style";
 

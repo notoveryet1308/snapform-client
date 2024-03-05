@@ -11,10 +11,12 @@ function OnboardPlayer({
   adminGameAction,
   isCountDownDone,
   countDownNumber,
+  gameName,
 }: {
   adminGameAction: boolean;
   isCountDownDone: boolean;
   countDownNumber: number | undefined;
+  gameName: string
 }) {
   const {
     onPlayerJoining,
@@ -26,7 +28,7 @@ function OnboardPlayer({
   return (
     <>
       <LiveGameHeader
-        gameName="Javascript trivia"
+        gameName={gameName}
         isLive
         livePlayerCount={joinedPlayer.length}
         playerDetail={isPlayerOnboarded ? playerDetails : null}
