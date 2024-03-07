@@ -122,7 +122,7 @@ export const useGamePlayerCountDown = () => {
 };
 
 export const usePlayerGameManager = () => {
-  const [currentQuestion, setCurrentQuestion] = useState();
+  const [currentQuestion, setCurrentQuestion] = useState<object | null>(null);
   const socket = useLivePlayerSocket();
   const serverMessage = useReadSocketMessage<object>({ ws: socket });
 

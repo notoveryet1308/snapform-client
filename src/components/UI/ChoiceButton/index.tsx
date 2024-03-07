@@ -98,16 +98,14 @@ function ChoiceButton({
   className,
 }: ChoiceButtonProps) {
   const [isSelected, setSelected] = useState(false);
-  const handleOnChoiceClick = useCallback(() => {
-    setSelected(() => !isSelected);
-  }, [isSelected]);
 
-  useEffect(() => {
+  const handleOnChoiceClick = () => {
+    setSelected(() => !isSelected);
     onChoiceClick({
       choiceData: { order, label, isCorrectChoice },
       isSelected: isSelected,
     });
-  }, [isCorrectChoice, isSelected, label, onChoiceClick, order]);
+  };
 
   return (
     <StyledChoiceButtonWrapper

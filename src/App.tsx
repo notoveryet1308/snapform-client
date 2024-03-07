@@ -8,6 +8,8 @@ import FormBuilder from "./modules/Admin/FormBuilder";
 import Dashboard from "./modules/Admin/Dashboard";
 import QuizBuilder from "./modules/Admin/FormBuilder/QuizBuilder";
 import DynamicFormBuilder from "./modules/Admin/FormBuilder/DynamicFormBuilder";
+import MultiSelectView from "./components/QuestionType/MultiSelect/view";
+import { ALL_QUESTION_TYPES } from "./type";
 
 const HomePage = () => {
   return (
@@ -25,7 +27,21 @@ const HomePage = () => {
         onChoiceClick={(value) => {
           console.log({ value });
         }}
-        isSelectionDisabled
+      />
+      <MultiSelectView
+        getSelectedOption={() => {}}
+        id="sample-test"
+        options={[
+          { label: "const", isCorrectChoice: true, order: "A" },
+          { label: "var", isCorrectChoice: true, order: "B" },
+          { label: "let", isCorrectChoice: true, order: "C" },
+          { label: "final", isCorrectChoice: false, order: "D" },
+        ]}
+        timeLimit={30}
+        point={2000}
+        questionType={ALL_QUESTION_TYPES.MULTI_SELECT}
+        title="What are correct key words for declaring variables in Javascript"
+        description="In JavaScript, variables can be declared using different keywords such as var, let, and const. Each keyword has its own rules and behaviors for variable declaration and assignment. This question asks you to identify the invalid way of declaring a variable among the given options. Understanding the correct ways to declare variables is essential for writing clean and efficient JavaScript code"
       />
     </div>
   );

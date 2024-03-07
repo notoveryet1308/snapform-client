@@ -146,3 +146,18 @@ export type ChoiceButtonDataType = {
   value?: string;
   isCorrectChoice: boolean;
 };
+
+export interface QuizQuestionViewType {
+  id: string;
+  questionType: ALL_QUESTION_TYPES;
+  title: string;
+  description: string;
+  options: QuestionOptionType[];
+  timeLimit: number;
+  point: number;
+  getSelectedOption: (data: OptionResponseDataType[]) => void;
+}
+
+export interface OptionResponseDataType extends QuestionOptionType {
+  isSelected: boolean;
+}
