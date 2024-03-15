@@ -37,4 +37,5 @@ export interface ChoiceButtonProps {
   }) => void;
   isCorrectChoice: boolean;
   isSelectionDisabled?: boolean;
+  selected?: boolean;
 }

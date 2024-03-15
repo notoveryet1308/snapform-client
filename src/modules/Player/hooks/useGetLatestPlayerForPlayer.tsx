@@ -3,6 +3,7 @@ import { useGetLatestPlayer } from "../../../hooks";
 
 export const useGetLatestPlayerForPlayer = () => {
   const socket = useLivePlayerSocket();
-  const joinedPlayer = useGetLatestPlayer({ socket });
-  return joinedPlayer;
+  const joinedPlayers = useGetLatestPlayer({ socket });
+
+  return joinedPlayers;
 };

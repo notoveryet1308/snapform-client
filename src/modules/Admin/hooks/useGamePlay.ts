@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAdminSocket } from "../../../Context/adminSocketProvider";
 import { useReadSocketMessage } from "../../../hooks";
-import { GAME_COUNT_DOWN, GAME_QUESTIONS } from "../../../type";
+import {
+  GAME_COUNT_DOWN,
+  GAME_QUESTIONS,
+  QuizQuestionServerType,
+} from "../../../type";
 
 const COUNTDOWN_TIMER = 5;
 
@@ -52,7 +56,8 @@ export const useGameAdminCountDown = () => {
 };
 
 export const useAdminGameManager = () => {
-  const [currentQuestion, setCurrentQuestion] = useState();
+  const [currentQuestion, setCurrentQuestion] =
+    useState<QuizQuestionServerType | null>(null);
   const socket = useAdminSocket();
   const serverMessage = useReadSocketMessage<object>({ ws: socket });
 
@@ -60,7 +65,7 @@ export const useAdminGameManager = () => {
     if (socket && serverMessage) {
       const { action, payload } = serverMessage;
       if (action === GAME_QUESTIONS.QUESTION_ITEM) {
-        setCurrentQuestion(payload);
+        setCurrentQuestion(payload as QuizQuestionServerType);
       }
     }
   }, [socket, serverMessage]);

@@ -1,7 +1,7 @@
 import { Desktop, DeviceMobile, HardDrive } from "phosphor-react";
 import { StyledQuizContentWrapper } from "./style";
 import { QuizQuestionType } from "../../../../type";
-import { ALL_QUESTION_TYPE_CONFIG } from "../../../../components/QuestionType";
+import { ALL_QUESTION_CREATE_TYPE_CONFIG } from "../../../../components/QuestionType";
 import { updateQuestionData } from "../../../../_features/Admin/createLiveQuiz/liveQuizSlice";
 import { useAppDispatch } from "../../../../_store";
 
@@ -11,7 +11,7 @@ function QuizContent({ content }: { content: QuizQuestionType }) {
   return (
     <StyledQuizContentWrapper>
       <div className="quiz-main-content">
-        {ALL_QUESTION_TYPE_CONFIG[content.questionType]({
+        {ALL_QUESTION_CREATE_TYPE_CONFIG[content.questionType]({
           valueFromParent: content,
           sendDataToParent: (data) => {
             dispatch(updateQuestionData(data));

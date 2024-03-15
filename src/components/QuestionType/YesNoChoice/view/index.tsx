@@ -1,24 +1,23 @@
 import { useState } from "react";
 import {
   QuestionOptionType,
-  MultiSelectQuizQuestionViewType,
+  SingleSelectQuizQuestionViewType,
   OptionResponseDataType,
 } from "../../../../type";
 import { ChoiceButton } from "../../../UI/ChoiceButton";
 import ProgressTimeBar from "../../../UI/ProgressTimeBar";
 import QuizQuestionContent from "../../QuizQuestionContent";
-import { StyledMultiSelectViewWrapper } from "./style";
+import { StyledYesNoSelectViewWrapper } from "./style";
 
-const MultiSelectView = ({
+const YesNoSelectView = ({
   title,
   description,
   options,
   timeLimit,
   getSelectedOption,
-}: MultiSelectQuizQuestionViewType) => {
-  const [selectedOptions, setSelectedOption] = useState<
-    OptionResponseDataType[]
-  >([]);
+}: SingleSelectQuizQuestionViewType) => {
+  const [selectedOption, setSelectedOption] =
+    useState<OptionResponseDataType | null>(null);
 
   const handleOptionSelection = ({
     choiceData,
@@ -27,25 +26,20 @@ const MultiSelectView = ({
     choiceData: QuestionOptionType;
     isSelected: boolean;
   }) => {
-    const found = selectedOptions.find((op) => op.order === choiceData.order);
-    const currentSelectedOption = found
-      ? selectedOptions.filter((op) => op.order !== choiceData.order)
-      : [...selectedOptions, { ...choiceData, isSelected }];
-
-    setSelectedOption(() => currentSelectedOption);
-    getSelectedOption(currentSelectedOption);
+    setSelectedOption({ ...choiceData, isSelected });
+    getSelectedOption({ ...choiceData, isSelected });
   };
 
   return (
-    <StyledMultiSelectViewWrapper>
+    <StyledYesNoSelectViewWrapper>
       <QuizQuestionContent
         title={title}
         description={description}
-        questionType="Multi - select"
+        questionType="yes/no - select"
       />
-      <div className="multi-select-view-options">
+      <div className="yes-no-select-view-options">
         <ProgressTimeBar time={timeLimit} />
-        <div className="multi-option-wrapper">
+        <div className="yes-no-option-wrapper">
           {options.map((option) => (
             <ChoiceButton
               key={option.order}
@@ -53,13 +47,16 @@ const MultiSelectView = ({
               order={option.order}
               isCorrectChoice={option.isCorrectChoice}
               onChoiceClick={handleOptionSelection}
-              className="multi-option-btn"
+              className="yes-no-option-btn"
+              selected={
+                selectedOption ? selectedOption.order === option.order : false
+              }
             />
           ))}
         </div>
       </div>
-    </StyledMultiSelectViewWrapper>
+    </StyledYesNoSelectViewWrapper>
   );
 };
 
-export default MultiSelectView;
+export default YesNoSelectView;

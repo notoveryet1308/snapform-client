@@ -1,4 +1,9 @@
-export type PlayerDataType = { id: string; name: string; avatar: string };
+export type PlayerDataType = {
+  id: string;
+  name: string;
+  avatar?: string;
+  isAdmin?: boolean;
+};
 
 export enum PLAYER_ACTION {
   playerOnboarding = "player-onboarding",
@@ -147,7 +152,7 @@ export type ChoiceButtonDataType = {
   isCorrectChoice: boolean;
 };
 
-export interface QuizQuestionViewType {
+export interface MultiSelectQuizQuestionViewType {
   id: string;
   questionType: ALL_QUESTION_TYPES;
   title: string;
@@ -158,6 +163,45 @@ export interface QuizQuestionViewType {
   getSelectedOption: (data: OptionResponseDataType[]) => void;
 }
 
+export interface SingleSelectQuizQuestionViewType {
+  id: string;
+  questionType: ALL_QUESTION_TYPES;
+  title: string;
+  description: string;
+  options: QuestionOptionType[];
+  timeLimit: number;
+  point: number;
+  getSelectedOption: (data: OptionResponseDataType) => void;
+}
+
 export interface OptionResponseDataType extends QuestionOptionType {
   isSelected: boolean;
+}
+
+export interface QuizQuestionServerType {
+  id: string;
+  questionType: ALL_QUESTION_TYPES;
+  title: string;
+  description: string;
+  options: QuestionOptionType[];
+  timeLimit: number;
+  point: number;
+}
+
+export interface LiveQuizServerDataType {
+  id: string;
+  title: string;
+  questions: QuizQuestionServerType[];
+}
+
+export enum QUIZ_DATA_ACTION {
+  SEND_QUIZ_DATA = "SEND_QUIZ_DATA",
+  LIVE_QUIZ_ID = "LIVE_QUIZ_ID",
+  IS_QUIZ_LIVE = "IS_QUIZ_LIVE",
+}
+
+export enum QUIZ_STATUS {
+  LIVE = "LIVE",
+  NOT_LIVE = "NOT_LIVE",
+  FETCHING = "FETCHING",
 }

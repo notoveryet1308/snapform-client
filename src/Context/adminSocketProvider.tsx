@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { connectToServer } from "../apiUtils";
-import { ADMIN_ACTION } from "../type";
+import { ADMIN_ACTION, PlayerDataType } from "../type";
 
 // Define the context
 interface AdminSocketContextProps {
@@ -30,7 +30,11 @@ export const AdminSocketProvider = ({
       adminSocket.send(
         JSON.stringify({
           action: ADMIN_ACTION.adminOnboarding,
-          payload: "ok",
+          payload: {
+            id: "admin",
+            name: "Admin",
+            isAdmin: true,
+          } as PlayerDataType,
         })
       );
     }

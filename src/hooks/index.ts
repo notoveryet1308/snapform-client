@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { messageFormat, PlayerDataType, PLAYER_ACTION } from "../type";
+import {
+  messageFormat,
+  PlayerDataType,
+  PLAYER_ACTION,
+  ADMIN_ACTION,
+} from "../type";
 
 export const useReadSocketMessage = <T>({
   ws,
@@ -33,7 +38,7 @@ export const useGetLatestPlayer = ({
 }: {
   socket: WebSocket | null;
 }) => {
-  const [joinedPlayers, setJoinedPlayers] = useState<PlayerDataType[]>([]);
+  const [joinedPlayers, setJoinedPlayers] = useState<PlayerDataType[] | []>([]);
   const serverMessage = useReadSocketMessage<PlayerDataType | PlayerDataType[]>(
     { ws: socket }
   );
@@ -43,19 +48,40 @@ export const useGetLatestPlayer = ({
       const { action, payload } = serverMessage;
 
       if (action === PLAYER_ACTION.playerOnboarded) {
-        setJoinedPlayers((prevPlayers) => [
-          ...prevPlayers,
-          payload as PlayerDataType,
-        ]);
-      }
-
-      if (action === PLAYER_ACTION.bulkPlayerOnboarded) {
-        if (Array.isArray(payload)) {
-          setJoinedPlayers(payload as PlayerDataType[]);
+        if (!joinedPlayers.length) {
+          setJoinedPlayers([payload as PlayerDataType]);
+        } else {
+          setJoinedPlayers([...joinedPlayers, payload as PlayerDataType]);
         }
       }
+
+      if (
+        action === PLAYER_ACTION.bulkPlayerOnboarded &&
+        Array.isArray(payload) &&
+        (payload as PlayerDataType[])
+      ) {
+        setJoinedPlayers(payload.filter((d) => !d?.isAdmin));
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serverMessage, socket]);
 
   return joinedPlayers;
+};
+
+export const useAdminOnboarded = ({ socket }: { socket: WebSocket | null }) => {
+  const [isAdminOnboarded, setAdminOnboarded] = useState(false);
+  const serverMessage = useReadSocketMessage<PlayerDataType | PlayerDataType[]>(
+    { ws: socket }
+  );
+
+  useEffect(() => {
+    if (serverMessage) {
+      if (serverMessage.action === ADMIN_ACTION.adminOnboarded) {
+        setAdminOnboarded(true);
+      }
+    }
+  }, [serverMessage]);
+
+  return { isAdminOnboarded };
 };

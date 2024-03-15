@@ -1,24 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import {
   QuestionOptionType,
-  MultiSelectQuizQuestionViewType,
+  SingleSelectQuizQuestionViewType,
   OptionResponseDataType,
 } from "../../../../type";
 import { ChoiceButton } from "../../../UI/ChoiceButton";
 import ProgressTimeBar from "../../../UI/ProgressTimeBar";
 import QuizQuestionContent from "../../QuizQuestionContent";
-import { StyledMultiSelectViewWrapper } from "./style";
+import { StyledSingleSelectViewWrapper } from "./style";
 
-const MultiSelectView = ({
+const SingleSelectView = ({
   title,
   description,
   options,
   timeLimit,
   getSelectedOption,
-}: MultiSelectQuizQuestionViewType) => {
-  const [selectedOptions, setSelectedOption] = useState<
-    OptionResponseDataType[]
-  >([]);
+}: SingleSelectQuizQuestionViewType) => {
+  const [selectedOption, setSelectedOption] =
+    useState<OptionResponseDataType | null>(null);
 
   const handleOptionSelection = ({
     choiceData,
@@ -27,25 +27,20 @@ const MultiSelectView = ({
     choiceData: QuestionOptionType;
     isSelected: boolean;
   }) => {
-    const found = selectedOptions.find((op) => op.order === choiceData.order);
-    const currentSelectedOption = found
-      ? selectedOptions.filter((op) => op.order !== choiceData.order)
-      : [...selectedOptions, { ...choiceData, isSelected }];
-
-    setSelectedOption(() => currentSelectedOption);
-    getSelectedOption(currentSelectedOption);
+    setSelectedOption({ ...choiceData, isSelected });
+    getSelectedOption({ ...choiceData, isSelected });
   };
 
   return (
-    <StyledMultiSelectViewWrapper>
+    <StyledSingleSelectViewWrapper>
       <QuizQuestionContent
         title={title}
         description={description}
-        questionType="Multi - select"
+        questionType="Single - select"
       />
-      <div className="multi-select-view-options">
+      <div className="single-select-view-options">
         <ProgressTimeBar time={timeLimit} />
-        <div className="multi-option-wrapper">
+        <div className="single-option-wrapper">
           {options.map((option) => (
             <ChoiceButton
               key={option.order}
@@ -53,13 +48,16 @@ const MultiSelectView = ({
               order={option.order}
               isCorrectChoice={option.isCorrectChoice}
               onChoiceClick={handleOptionSelection}
-              className="multi-option-btn"
+              className="single-option-btn"
+              selected={
+                selectedOption ? selectedOption.order === option.order : false
+              }
             />
           ))}
         </div>
       </div>
-    </StyledMultiSelectViewWrapper>
+    </StyledSingleSelectViewWrapper>
   );
 };
 
-export default MultiSelectView;
+export default SingleSelectView;

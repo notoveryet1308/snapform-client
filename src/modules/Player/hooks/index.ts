@@ -8,6 +8,8 @@ import {
   ADMIN_GAME_ACTION,
   GAME_COUNT_DOWN,
   GAME_QUESTIONS,
+  QUIZ_DATA_ACTION,
+  QUIZ_STATUS,
 } from "../../../type";
 import { useLivePlayerSocket } from "../../../Context/livePlayerSocketProvider";
 import { useReadSocketMessage } from "../../../hooks";
@@ -136,4 +138,25 @@ export const usePlayerGameManager = () => {
   }, [socket, serverMessage]);
 
   return { currentQuestion };
+};
+
+export const useQuizLiveStatus = () => {
+  const playerSocket = useLivePlayerSocket();
+  const [isQuizLive, setQuizLive] = useState<QUIZ_STATUS>(QUIZ_STATUS.FETCHING);
+
+  const serverMessage = useReadSocketMessage({ ws: playerSocket });
+
+  useEffect(() => {
+    if (serverMessage) {
+      const { action, payload } = serverMessage;
+
+      if (action === QUIZ_DATA_ACTION.IS_QUIZ_LIVE) {
+        console.log({ action, payload });
+
+        setQuizLive(!!payload ? QUIZ_STATUS.LIVE : QUIZ_STATUS.NOT_LIVE);
+      }
+    }
+  }, [serverMessage]);
+
+  return { isQuizLive };
 };

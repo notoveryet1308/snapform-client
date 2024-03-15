@@ -90,14 +90,15 @@ function ChoiceButtonEdit({
 }
 
 function ChoiceButton({
-  order,
   label,
-  isCorrectChoice,
-  onChoiceClick,
-  isSelectionDisabled,
+  order,
+  selected = false,
   className,
+  onChoiceClick,
+  isCorrectChoice,
+  isSelectionDisabled,
 }: ChoiceButtonProps) {
-  const [isSelected, setSelected] = useState(false);
+  const [isSelected, setSelected] = useState(selected);
 
   const handleOnChoiceClick = () => {
     setSelected(() => !isSelected);
@@ -106,6 +107,10 @@ function ChoiceButton({
       isSelected: isSelected,
     });
   };
+
+  useEffect(() => {
+    setSelected(selected);
+  }, [selected]);
 
   return (
     <StyledChoiceButtonWrapper
