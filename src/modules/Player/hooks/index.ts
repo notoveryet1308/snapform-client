@@ -10,9 +10,10 @@ import {
   GAME_QUESTIONS,
   QUIZ_DATA_ACTION,
   QUIZ_STATUS,
+  QuizQuestionServerType,
 } from "../../../type";
 import { useLivePlayerSocket } from "../../../Context/livePlayerSocketProvider";
-import { useReadSocketMessage } from "../../../hooks";
+import { useReadSocketMessage, useLiveQuizActivityData } from "../../../hooks";
 
 export const useOnboardPlayer = () => {
   const [playerDetails, setPlayerDetails] = useState<PlayerDataType | null>(
@@ -35,7 +36,7 @@ export const useOnboardPlayer = () => {
   const onPlayerJoining = () => {
     if (livePlayerSocket && playerDetails) {
       const message = {
-        action: PLAYER_ACTION.playerOnboarding,
+        action: PLAYER_ACTION.PLAYER_ONBOARDING,
         payload: playerDetails,
       };
       livePlayerSocket.send(JSON.stringify(message));
@@ -48,7 +49,7 @@ export const useOnboardPlayer = () => {
         const { action, payload } = JSON.parse(event.data);
 
         if (
-          action === PLAYER_ACTION.playerOnboarded &&
+          action === PLAYER_ACTION.PLAYER_ONBOARDED &&
           payload.id === playerDetails?.id
         ) {
           setIsPlayerOnboarded(true);
@@ -124,20 +125,32 @@ export const useGamePlayerCountDown = () => {
 };
 
 export const usePlayerGameManager = () => {
-  const [currentQuestion, setCurrentQuestion] = useState<object | null>(null);
+  const [currentQuestion, setCurrentQuestion] =
+    useState<QuizQuestionServerType | null>(null);
   const socket = useLivePlayerSocket();
   const serverMessage = useReadSocketMessage<object>({ ws: socket });
+
+  const { handleOptionSelection, selectedOption, sendPlayerResponse } =
+    useLiveQuizActivityData({
+      socket,
+      sendResponseAction: PLAYER_ACTION.PLAYER_QUESTION_RESPONSE,
+    });
 
   useEffect(() => {
     if (socket && serverMessage) {
       const { action, payload } = serverMessage;
       if (action === GAME_QUESTIONS.QUESTION_ITEM) {
-        setCurrentQuestion(payload);
+        setCurrentQuestion(payload as QuizQuestionServerType);
       }
     }
   }, [socket, serverMessage]);
 
-  return { currentQuestion };
+  return {
+    currentQuestion,
+    sendPlayerResponse,
+    handleOptionSelection,
+    selectedOption,
+  };
 };
 
 export const useQuizLiveStatus = () => {
@@ -151,8 +164,6 @@ export const useQuizLiveStatus = () => {
       const { action, payload } = serverMessage;
 
       if (action === QUIZ_DATA_ACTION.IS_QUIZ_LIVE) {
-        console.log({ action, payload });
-
         setQuizLive(!!payload ? QUIZ_STATUS.LIVE : QUIZ_STATUS.NOT_LIVE);
       }
     }

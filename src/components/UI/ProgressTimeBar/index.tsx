@@ -1,7 +1,13 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { StyledProgressBarWrapper } from "./style";
 
-const ProgressTimeBar = ({ time }: { time: number }) => {
+const ProgressTimeBar = ({
+  time,
+  onTimeOver,
+}: {
+  time: number;
+  onTimeOver?: () => void;
+}) => {
   const progressRef = useRef<HTMLDivElement>(null);
   const [currentProgress, setCurrentProgress] = useState(0);
   const [progressWidth, setProgressWidth] = useState<number | null>(null);
@@ -24,8 +30,12 @@ const ProgressTimeBar = ({ time }: { time: number }) => {
       }, 1000);
     }
 
+    if (currentProgress === progressWidth) {
+      onTimeOver && onTimeOver();
+    }
+
     return () => clearInterval(timerId);
-  }, [currentProgress, progressWidth, time]);
+  }, [currentProgress, onTimeOver, progressWidth, time]);
 
   return (
     <StyledProgressBarWrapper ref={progressRef}>

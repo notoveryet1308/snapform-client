@@ -7,8 +7,7 @@ import {
 } from "../hooks";
 
 import { StyledLivePageWrapper } from "./style";
-import OnboardPlayer from "./components/OnboardPlayer";
-import GameManager from "./components/GameManager";
+import OnboardGame from "./components/OnboardPlayer";
 import useGetLiveQuizById from "../../../api/hook/useGetLiveQuizById";
 import Loader from "../../../components/UI/Loader";
 import { useLivePlayerSocket } from "../../../Context/livePlayerSocketProvider";
@@ -44,16 +43,14 @@ const LivePage = () => {
         (isQuizLive === QUIZ_STATUS.FETCHING ? (
           <Loader loadingText="Fetching quiz data..." />
         ) : (
-          <>
-            <OnboardPlayer
-              adminGameAction={!!adminGameAction}
-              isCountDownDone={isCountDownDone}
-              countDownNumber={countDownNumber}
-              gameName={data.title}
-              isQuizLive={isQuizLive}
-            />
-            {isCountDownDone && <GameManager />}
-          </>
+          <OnboardGame
+            adminGameAction={!!adminGameAction}
+            isCountDownDone={isCountDownDone}
+            countDownNumber={countDownNumber}
+            gameName={data.title}
+            isQuizLive={isQuizLive}
+            gameId={gameId}
+          />
         ))}
     </StyledLivePageWrapper>
   );

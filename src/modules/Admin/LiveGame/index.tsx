@@ -76,7 +76,7 @@ function LiveGame() {
           />
           {adminGameControl?.[ADMIN_GAME_ACTION.PLAY_PAUSE] ===
             ADMIN_GAME_ACTION.PLAY_GAME && (
-            <GamePlay gameControl={adminGameControl} />
+            <GamePlay gameControl={adminGameControl} gameId={gameId} />
           )}
         </>
       )}

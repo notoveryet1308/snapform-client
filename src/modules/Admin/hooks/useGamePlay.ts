@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAdminSocket } from "../../../Context/adminSocketProvider";
-import { useReadSocketMessage } from "../../../hooks";
+import { useLiveQuizActivityData, useReadSocketMessage } from "../../../hooks";
 import {
+  ADMIN_ACTION,
   GAME_COUNT_DOWN,
   GAME_QUESTIONS,
   QuizQuestionServerType,
@@ -61,6 +62,12 @@ export const useAdminGameManager = () => {
   const socket = useAdminSocket();
   const serverMessage = useReadSocketMessage<object>({ ws: socket });
 
+  const { sendPlayerResponse, selectedOption, handleOptionSelection } =
+    useLiveQuizActivityData({
+      socket,
+      sendResponseAction: ADMIN_ACTION.ADMIN_QUESTION_RESPONSE,
+    });
+
   useEffect(() => {
     if (socket && serverMessage) {
       const { action, payload } = serverMessage;
@@ -70,5 +77,10 @@ export const useAdminGameManager = () => {
     }
   }, [socket, serverMessage]);
 
-  return { currentQuestion };
+  return {
+    currentQuestion,
+    sendPlayerResponse,
+    handleOptionSelection,
+    selectedOption,
+  };
 };

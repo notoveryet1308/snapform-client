@@ -15,6 +15,7 @@ const MultiSelectView = ({
   options,
   timeLimit,
   getSelectedOption,
+  onTimeOver,
 }: MultiSelectQuizQuestionViewType) => {
   const [selectedOptions, setSelectedOption] = useState<
     OptionResponseDataType[]
@@ -44,7 +45,7 @@ const MultiSelectView = ({
         questionType="Multi - select"
       />
       <div className="multi-select-view-options">
-        <ProgressTimeBar time={timeLimit} />
+        <ProgressTimeBar time={timeLimit} onTimeOver={onTimeOver} />
         <div className="multi-option-wrapper">
           {options.map((option) => (
             <ChoiceButton

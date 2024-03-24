@@ -1,7 +1,7 @@
 import { PaperPlaneRight } from "phosphor-react";
 
 import { StyledJoiningScreenWrapper } from "./style";
-import { Input, TextArea } from "../../../../../components/UI/Input";
+import { Input } from "../../../../../components/UI/Input";
 import { PrimaryButton } from "../../../../../components/UI/Button";
 import PlayerPreview from "../../../../../components/PlayerPreview";
 import { PlayerDataType } from "../../../../../type";

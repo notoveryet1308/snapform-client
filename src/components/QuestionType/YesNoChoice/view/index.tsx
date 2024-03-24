@@ -14,6 +14,7 @@ const YesNoSelectView = ({
   description,
   options,
   timeLimit,
+  onTimeOver,
   getSelectedOption,
 }: SingleSelectQuizQuestionViewType) => {
   const [selectedOption, setSelectedOption] =
@@ -38,7 +39,7 @@ const YesNoSelectView = ({
         questionType="yes/no - select"
       />
       <div className="yes-no-select-view-options">
-        <ProgressTimeBar time={timeLimit} />
+        <ProgressTimeBar time={timeLimit} onTimeOver={onTimeOver} />
         <div className="yes-no-option-wrapper">
           {options.map((option) => (
             <ChoiceButton

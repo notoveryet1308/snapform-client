@@ -4,22 +4,25 @@ import Loader from "../../../../../components/UI/Loader";
 import { QUIZ_STATUS } from "../../../../../type";
 import { useOnboardPlayer } from "../../../hooks";
 import { useGetLatestPlayerForPlayer } from "../../../hooks/useGetLatestPlayerForPlayer";
+import GameManager from "../GameManager";
 import JoiningScreen from "../JoiningScreen";
 
 import { StyledOnboardPlayerWrapper } from "./style";
 
-function OnboardPlayer({
+function OnboardGame({
   adminGameAction,
   isCountDownDone,
   countDownNumber,
   gameName,
   isQuizLive,
+  gameId,
 }: {
   adminGameAction: boolean;
   isCountDownDone: boolean;
   countDownNumber: number | undefined;
   gameName: string;
   isQuizLive: QUIZ_STATUS;
+  gameId: string;
 }) {
   const {
     onPlayerJoining,
@@ -36,28 +39,34 @@ function OnboardPlayer({
         livePlayerCount={joinedPlayer.length}
         playerDetail={isPlayerOnboarded ? playerDetails : null}
       />
-      {isQuizLive === QUIZ_STATUS.LIVE ? (
-        <StyledOnboardPlayerWrapper>
-          {!adminGameAction ? (
-            <JoiningScreen
-              getPlayerName={handlePlayerDetail}
-              onGameJoin={onPlayerJoining}
-              isPlayerJoined={isPlayerOnboarded}
-              playerDetails={playerDetails}
-            />
-          ) : !isCountDownDone ? (
-            countDownNumber ? (
-              <Countdown countdownNumber={countDownNumber} />
-            ) : (
-              <Loader />
-            )
-          ) : null}
-        </StyledOnboardPlayerWrapper>
-      ) : (
-        <p>This quiz is not live..!</p>
-      )}
+      <StyledOnboardPlayerWrapper>
+        {isQuizLive === QUIZ_STATUS.LIVE ? (
+          <>
+            {!adminGameAction ? (
+              <JoiningScreen
+                getPlayerName={handlePlayerDetail}
+                onGameJoin={onPlayerJoining}
+                isPlayerJoined={isPlayerOnboarded}
+                playerDetails={playerDetails}
+              />
+            ) : !isCountDownDone ? (
+              countDownNumber ? (
+                <Countdown countdownNumber={countDownNumber} />
+              ) : (
+                <Loader />
+              )
+            ) : null}
+          </>
+        ) : (
+          <p>This quiz is not live..!</p>
+        )}
+
+        {isCountDownDone && (
+          <GameManager playerDetail={playerDetails} quizId={gameId} />
+        )}
+      </StyledOnboardPlayerWrapper>
     </>
   );
 }
 
-export default OnboardPlayer;
+export default OnboardGame;

@@ -6,14 +6,18 @@ export type PlayerDataType = {
 };
 
 export enum PLAYER_ACTION {
-  playerOnboarding = "player-onboarding",
-  playerOnboarded = "player-onboarded",
-  bulkPlayerOnboarded = "bulk-player-onboarding",
+  PLAYER_ONBOARDING = "PLAYER_ONBOARDING",
+  PLAYER_ONBOARDED = "PLAYER_ONBOARDED",
+  PLAYER_QUESTION_RESPONSE = "PLAYER_QUESTION_RESPONSE",
+  PLAYER_DISCONNECTED = "PLAYER_DISCONNECTED",
 }
 
 export enum ADMIN_ACTION {
-  adminOnboarding = "admin-onboarding",
-  adminOnboarded = "admin-onboarded",
+  ADMIN_ONBOARDING = "ADMIN_ONBOARDING",
+  ADMIN_ONBOARDED = "ADMIN_ONBOARDED",
+  PLAYER_BULK_ONBOARDING_TO_ADMIN = "PLAYER_BULK_ONBOARDING_TO_ADMIN",
+  ADMIN_QUESTION_RESPONSE = "ADMIN_QUESTION_RESPONSE",
+  ADMIN_PLAYER_ONBOARDED = "ADMIN_PLAYER_ONBOARDED",
 }
 
 export enum GAME_COUNT_DOWN {
@@ -37,18 +41,18 @@ export type AdminGameControlType = {
   [ADMIN_GAME_ACTION.SKIP_QUESTION]: ADMIN_GAME_ACTION.SKIP_QUESTION | null;
 };
 
-export type playerOnboarding = {
-  action: PLAYER_ACTION.playerOnboarding;
+export type PlayerOnboardingType = {
+  action: PLAYER_ACTION.PLAYER_ONBOARDING;
   payload: PlayerDataType;
 };
 
-export type playerOnboarded = {
-  action: PLAYER_ACTION.playerOnboarded;
+export type PlayerOnboardedType = {
+  action: PLAYER_ACTION.PLAYER_ONBOARDED;
   payload: PlayerDataType;
 };
 
-export type bulkPlayerOnboarded = {
-  action: PLAYER_ACTION.playerOnboarded;
+export type BulkPlayerOnboardToAdminType = {
+  action: ADMIN_ACTION.PLAYER_BULK_ONBOARDING_TO_ADMIN;
   payload: PlayerDataType[];
 };
 
@@ -161,6 +165,7 @@ export interface MultiSelectQuizQuestionViewType {
   timeLimit: number;
   point: number;
   getSelectedOption: (data: OptionResponseDataType[]) => void;
+  onTimeOver: () => void;
 }
 
 export interface SingleSelectQuizQuestionViewType {
@@ -172,6 +177,7 @@ export interface SingleSelectQuizQuestionViewType {
   timeLimit: number;
   point: number;
   getSelectedOption: (data: OptionResponseDataType) => void;
+  onTimeOver: () => void;
 }
 
 export interface OptionResponseDataType extends QuestionOptionType {
@@ -195,13 +201,27 @@ export interface LiveQuizServerDataType {
 }
 
 export enum QUIZ_DATA_ACTION {
+  JOINED_PLAYER = "JOINED_PLAYER",
   SEND_QUIZ_DATA = "SEND_QUIZ_DATA",
   LIVE_QUIZ_ID = "LIVE_QUIZ_ID",
   IS_QUIZ_LIVE = "IS_QUIZ_LIVE",
+  SEND_NEXT_QUESTION = "SEND_NEXT_QUESTION",
+  QUIZ_OVER = "QUIZ_OVER",
+  SHOW_OUTCOME = "SHOW_OUTCOME",
+  SHOW_FINAL_OUTCOME = "SHOW_FINAL_OUTCOME",
 }
 
 export enum QUIZ_STATUS {
   LIVE = "LIVE",
   NOT_LIVE = "NOT_LIVE",
   FETCHING = "FETCHING",
+}
+
+export interface PlayerQuizQuestionResponseDataType {
+  player: PlayerDataType;
+  quizId: string;
+  questionId: string;
+  selectedOption: OptionResponseDataType[] | OptionResponseDataType | [];
+  point: number;
+  responseTime: number;
 }

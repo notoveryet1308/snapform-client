@@ -25,8 +25,14 @@ function JoinedPlayerList({
     <>
       {joinedPlayer.length > 0 ? (
         <StyledJoinedPlayerList>
-          {joinedPlayer.map(({ id, name, avatar }) => (
-            <PlayerPreview key={id} id={id} name={name} avatar={avatar} />
+          {joinedPlayer.map(({ id, name, avatar, isAdmin }) => (
+            <PlayerPreview
+              key={id}
+              id={id}
+              name={name}
+              avatar={avatar}
+              isAdmin={isAdmin}
+            />
           ))}
         </StyledJoinedPlayerList>
       ) : (

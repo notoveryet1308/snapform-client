@@ -21,7 +21,9 @@ export const AdminSocketProvider = ({
   useEffect(() => {
     connectToServer({ path: "admin" }).then((ws) => {
       const socket = ws as WebSocket;
-      setAdminSocket(socket);
+      if (!adminSocket) {
+        setAdminSocket(socket);
+      }
     });
   }, []);
 
@@ -29,7 +31,7 @@ export const AdminSocketProvider = ({
     if (adminSocket) {
       adminSocket.send(
         JSON.stringify({
-          action: ADMIN_ACTION.adminOnboarding,
+          action: ADMIN_ACTION.ADMIN_ONBOARDING,
           payload: {
             id: "admin",
             name: "Admin",

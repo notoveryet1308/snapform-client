@@ -1,10 +1,49 @@
 import React from "react";
 import { usePlayerGameManager } from "../../../hooks";
 
-function GameManager() {
-  const { currentQuestion } = usePlayerGameManager();
+import { StyledPlayerGameManagerWrapper } from "./style";
+import { ALL_QUESTION_VIEW_TYPE_CONFIG } from "../../../../../components/QuestionType";
+import Loader from "../../../../../components/UI/Loader";
+import { PlayerDataType } from "../../../../../type";
 
-  return <>GameManager</>;
+function GameManager({
+  playerDetail,
+  quizId,
+}: {
+  playerDetail: PlayerDataType;
+  quizId: string;
+}) {
+  const {
+    currentQuestion,
+    sendPlayerResponse,
+    handleOptionSelection,
+    selectedOption,
+  } = usePlayerGameManager();
+
+  return (
+    <StyledPlayerGameManagerWrapper>
+      {!currentQuestion ? (
+        <Loader />
+      ) : (
+        <div className="quiz-content">
+          {ALL_QUESTION_VIEW_TYPE_CONFIG[currentQuestion.questionType]({
+            ...currentQuestion,
+            getSelectedOption: handleOptionSelection,
+            onTimeOver: () => {
+              sendPlayerResponse({
+                selectedOption: selectedOption,
+                player: playerDetail,
+                questionId: currentQuestion.id,
+                point: currentQuestion.point,
+                quizId,
+                responseTime: 1,
+              });
+            },
+          })}
+        </div>
+      )}
+    </StyledPlayerGameManagerWrapper>
+  );
 }
 
 export default GameManager;

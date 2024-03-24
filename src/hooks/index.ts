@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   messageFormat,
   PlayerDataType,
   PLAYER_ACTION,
   ADMIN_ACTION,
+  PlayerQuizQuestionResponseDataType,
 } from "../type";
 
 export const useReadSocketMessage = <T>({
@@ -38,7 +39,7 @@ export const useGetLatestPlayer = ({
 }: {
   socket: WebSocket | null;
 }) => {
-  const [joinedPlayers, setJoinedPlayers] = useState<PlayerDataType[] | []>([]);
+  const [joinedPlayers, setJoinedPlayers] = useState<PlayerDataType[]>([]);
   const serverMessage = useReadSocketMessage<PlayerDataType | PlayerDataType[]>(
     { ws: socket }
   );
@@ -47,7 +48,7 @@ export const useGetLatestPlayer = ({
     if (serverMessage && socket) {
       const { action, payload } = serverMessage;
 
-      if (action === PLAYER_ACTION.playerOnboarded) {
+      if (action === ADMIN_ACTION.ADMIN_PLAYER_ONBOARDED) {
         if (!joinedPlayers.length) {
           setJoinedPlayers([payload as PlayerDataType]);
         } else {
@@ -56,15 +57,26 @@ export const useGetLatestPlayer = ({
       }
 
       if (
-        action === PLAYER_ACTION.bulkPlayerOnboarded &&
+        action === ADMIN_ACTION.PLAYER_BULK_ONBOARDING_TO_ADMIN &&
         Array.isArray(payload) &&
         (payload as PlayerDataType[])
       ) {
-        setJoinedPlayers(payload.filter((d) => !d?.isAdmin));
+        setJoinedPlayers(payload);
+      }
+
+      if (
+        action === PLAYER_ACTION.PLAYER_DISCONNECTED &&
+        !Array.isArray(payload) &&
+        payload?.id
+      ) {
+        const updatedPlayer =
+          joinedPlayers.length &&
+          joinedPlayers.filter((player) => player.id !== payload.id);
+        setJoinedPlayers(updatedPlayer);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [serverMessage, socket]);
+  }, [serverMessage?.action, socket]);
 
   return joinedPlayers;
 };
@@ -76,12 +88,58 @@ export const useAdminOnboarded = ({ socket }: { socket: WebSocket | null }) => {
   );
 
   useEffect(() => {
+    console.log({ action: serverMessage?.action });
+
     if (serverMessage) {
-      if (serverMessage.action === ADMIN_ACTION.adminOnboarded) {
+      if (serverMessage.action === ADMIN_ACTION.ADMIN_ONBOARDED) {
         setAdminOnboarded(true);
       }
     }
-  }, [serverMessage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [serverMessage?.action]);
 
   return { isAdminOnboarded };
+};
+
+export const useLiveQuizActivityData = ({
+  socket,
+  sendResponseAction,
+}: {
+  sendResponseAction: string;
+  socket: WebSocket | null;
+}) => {
+  const [selectedOption, setSelectedOption] = useState([]);
+  const socketMessage = useReadSocketMessage({ ws: socket });
+
+  const handleOptionSelection = useCallback((value) => {
+    setSelectedOption(value);
+  }, []);
+
+  const sendPlayerResponse = ({
+    player,
+    point,
+    questionId,
+    quizId,
+    selectedOption,
+    responseTime,
+  }: PlayerQuizQuestionResponseDataType) => {
+    if (socket) {
+      const message = {
+        action: sendResponseAction,
+        payload: {
+          player,
+          point,
+          questionId,
+          quizId,
+          selectedOption,
+          responseTime,
+        },
+      };
+
+      socket.send(JSON.stringify(message));
+      console.log({ message });
+    }
+  };
+
+  return { sendPlayerResponse, handleOptionSelection, selectedOption };
 };

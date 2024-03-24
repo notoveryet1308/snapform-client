@@ -6,8 +6,10 @@ import Loader from "../../../../../components/UI/Loader";
 
 function GamePlay({
   gameControl,
+  gameId,
 }: {
   gameControl: AdminGameControlType | null;
+  gameId: string;
 }) {
   const { countDownNumber, isCountDownDone } = useGameAdminCountDown();
   if (
@@ -24,7 +26,10 @@ function GamePlay({
           <Loader />
         )
       ) : (
-        <GameManager />
+        <GameManager
+          playerDetail={{ id: "Admin", name: "Admin", isAdmin: true }}
+          quizId={gameId}
+        />
       )}
     </>
   );
